@@ -1,2 +1,5 @@
-# bibliofilia
-Administraçãod e Biblioteca Pessoal
+# Bibliofilia
+
+### Administração de Biblioteca Pessoal
+
+#### Estudo em Django de uma aplicação de gerenciamento de biblioteca pessoal
