@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&(iovmv1!wnz@596gw9g90gv8dx(eljq#rz!wy7lpbyv_xi-j2'
+SECRET_KEY = str(os.getenv('SECRET'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'autores.apps.AutoresConfig',
     'livros.apps.LivrosConfig',
-    'home.apps.HomeConfig'
+    'home.apps.HomeConfig',
+    'editoras.apps.EditorasConfig'
 ]
 
 MIDDLEWARE = [
@@ -79,11 +80,14 @@ WSGI_APPLICATION = 'alexandria.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'alexandria',
+        'USER': 'alexandria',
+        'PASSWORD': 'Senha_Alexandria',
+        'HOST': '192.168.15.88',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

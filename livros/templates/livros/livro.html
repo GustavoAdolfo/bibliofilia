@@ -1,0 +1,23 @@
+{%extends 'default.html'%}
+{%block 'titulo'%}{{ livro.titulo }}{%endblock%}
+
+{%block 'conteudo'%}
+<div>
+<h3>{{ livro.titulo }}</h3>
+<h4 class="subtitulo">{{ livro.subtitulo }}</h4>
+<p class="autor-livro">{{ livro.autor }}</p>
+<p class="editor-livro">{{ livro.editora }}</p>
+<p class="sinopse">{{ livro.sinopse }}</p>
+</div>
+<aside>
+    <figure class="capa-livro">
+        <img src="{{ livro.capa }}" alt="{{ livro.titulo }}">
+    </figure>
+    <div>
+        <p class="venda">
+            <img src="" alt="" class="Amazon">
+            Compre o livro na Amazon e ajude com o desenvolvimento do projeto da <a href="https://www.livrosviajantes.com.br" id="plv">Plataforma Livros Viajantes</a>!
+        </p>
+    </div>
+</aside>
+{%endblock%}

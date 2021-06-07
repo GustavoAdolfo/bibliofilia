@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexandria - {%block 'titulo'%}{%endblock%}</title>
+    <title>Minhoteca - {%block 'titulo'%}{%endblock%}</title>
     <link rel="icon" href="/favicon.ico">
     <link href="{% static 'css/bootstrap.min.css'%}" rel='stylesheet' id='css-base' type='text/css' />
     <style type="text/css">
@@ -16,31 +16,13 @@
     </style>
 </head>
 <body>
+    {% include '_head.html' %}
     <div class="container-fluid">
-    <head>
-        <div class="row">
-            <div class="col-sm-1">
-            <img src="{% static 'imgs/logo.png'%}" alt="" class="img-logo" />
-        </div>
-        <div class="col">
-        <h1>Alexandria</h1>
-    </div>
-    </div>
-    </head>
     <main class="row">
-        <aside class="col-sm-2">
-        <menu>
-            <ul>
-                <li><a href="/">Início</a></li>
-                <li><a href="/livros">Livros</a></li>
-                <li><a href="/autores">Autores</a></li>
-                <li><a href="/sobre">Sobre</a></li>
-            </ul>
-        </menu>
-        </aside>
         <div class="col-sm-10">
         <div class="content">
-            {%block 'conteudo'%}{%endblock%}
+            {%block 'conteudo'%}
+            {%endblock%}
         </div>
     </div>
 </main>

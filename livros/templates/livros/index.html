@@ -2,5 +2,33 @@
 {%block 'titulo'%}Livros{%endblock%}
 
 {%block 'conteudo'%}
-<h1>Meus Livros</h1>
+<h1>Livros</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Titulo / Subtitulo</td>
+            <td>Autor</td>
+            <td>Idioma</td>
+            <td>Disponível</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for livro in livros %}
+        <tr>
+            <td>
+                <a href="{% url 'livro' livro.id %}" class="livro">
+                <span class="titulo">
+                    {{ livro.titulo }}</span>
+                <br/>
+                <span class="subtitulo">{{ livro.subtitulo }}</span>
+                </a>
+            </td>
+            <td>{{ livro.autor }}</td>
+            <td>{{ livro.idioma }}</td>
+            <td>{% if livro.disponivel %} SIM {% else %} NÃO {% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot></tfoot>
+</table>
 {%endblock%}
