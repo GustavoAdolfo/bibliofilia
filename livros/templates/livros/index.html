@@ -9,13 +9,12 @@
             <td>Titulo / Subtitulo</td>
             <td>Autor</td>
             <td>Idioma</td>
-            <td>Disponível</td>
         </tr>
     </thead>
     <tbody>
         {% for livro in livros %}
         <tr>
-            <td>
+            <td class="{% if livro.disponivel %}livro-disponivel{% else %}livro-indisponivel{% endif %}">
                 <a href="{% url 'livro' livro.id %}" class="livro">
                 <span class="titulo">
                     {{ livro.titulo }}</span>
@@ -25,7 +24,6 @@
             </td>
             <td>{{ livro.autor }}</td>
             <td>{{ livro.idioma }}</td>
-            <td>{% if livro.disponivel %} SIM {% else %} NÃO {% endif %}</td>
         </tr>
         {% endfor %}
     </tbody>

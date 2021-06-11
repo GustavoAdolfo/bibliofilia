@@ -1,5 +1,21 @@
 {%extends 'default.html'%}
+{% load static %}
 {%block 'titulo'%}Autores{%endblock%}
+
 {%block 'conteudo'%}
-<h2>Autores</h2>
+<h1>Autores</h1>
+{% for autor in autores %}
+<div class="autor-foto">
+    <figure>
+        <img src="{{ autor.imagem }}" alt="{{ autor.nome }}">
+        <figcaption>
+            <span class="autor-nome">{{ autor.nome }}</span><br/>
+            <span class="autor-nacionalidade">{{ autor.pais_origem }}</span>
+            <span class="autor-link"><a href="{{autor.url_wiki">
+                <img src="{% static 'imgs/wikipedia_icon_128px.png'%}" alt="Wikipédia" title="Wikipédia" />
+            </a></span>
+        </figcaption>
+    </figure>
+</div>
+{% endfor %}
 {%endblock%}

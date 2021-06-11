@@ -8,12 +8,41 @@
     <title>Minhoteca - {%block 'titulo'%}{%endblock%}</title>
     <link rel="icon" href="/favicon.ico">
     <link href="{% static 'css/bootstrap.min.css'%}" rel='stylesheet' id='css-base' type='text/css' />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;500;600;700;800&display=swap" rel="stylesheet"> 
     <style type="text/css">
     .img-logo {
         width: 70px;
         height: 60px;
     }
+    body {
+        font-family: 'Baloo Tammudu 2', cursive;
+    }
+    .autor-foto {
+        max-width: 180px;
+        float: left;
+        height: 260px;
+        padding: 6px;
+        margin-right: 20px;
+        display: block;
+        border: 2px red solid;
+        text-align: center;
+    }
+    .autor-foto > figure > img {
+        max-width: 140px;
+        max-height: 200px;
+    }
+    .autor-foto > figure > figcaption {
+        width: 100%;
+        padding: 3px;
+        background-color: #ccc;
+        }
+    .autor-nome { line-height: 120%; font-weight: 600; font-size: 1.3rem; }
+    .autor-nacionalidade { font-size: .95rem; }
+    .autor-link img { width: 16px; height: 16px; }
+    .livro-disponivel { background-color: #9acf9a !important;}
+    .livro-indisponivel { background-color: orangered !important; }
     </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 <body>
     {% include '_head.html' %}
