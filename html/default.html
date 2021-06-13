@@ -16,48 +16,56 @@
     }
     body {
         font-family: 'Baloo Tammudu 2', cursive;
+        background-color: #397239;
+    }
+    body header {
+        background-color: #397239;
+    }
+    body header a {
+        color: #fff;
+    }
+    body main {
+        background-color: #ddd;
+        padding: 20px 6px;
+    }
+    .listagem-autores {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .listagem-autores > .autor {
+        max-width: 160px;
+        margin: 3px 6px;
+        margin-bottom: 12px;
     }
     .autor-foto {
-        max-width: 180px;
-        float: left;
-        height: 260px;
-        padding: 6px;
-        margin-right: 20px;
-        display: block;
-        border: 2px red solid;
-        text-align: center;
-    }
-    .autor-foto > figure > img {
-        max-width: 140px;
+        max-width: 160px;
         max-height: 200px;
     }
-    .autor-foto > figure > figcaption {
-        width: 100%;
-        padding: 3px;
-        background-color: #ccc;
-        }
-    .autor-nome { line-height: 120%; font-weight: 600; font-size: 1.3rem; }
-    .autor-nacionalidade { font-size: .95rem; }
     .autor-link img { width: 16px; height: 16px; }
     .livro-disponivel { background-color: #9acf9a !important;}
-    .livro-indisponivel { background-color: orangered !important; }
+    .livro-indisponivel {display: none; }
+    .anuncios {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .anuncio-livro {
+        margin: 2px 4px;
+    }
     </style>
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 <body>
-    {% include '_head.html' %}
     <div class="container-fluid">
-    <main class="row">
-        <div class="col-sm-10">
-        <div class="content">
+        {% include '_head.html' %}
+        <main style="padding: 6px;">
             {%block 'conteudo'%}
             {%endblock%}
-        </div>
-    </div>
-</main>
-    <footer>
+        </main>
+        <footer>
 
-    </footer>
+        </footer>
     </div>
 
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>

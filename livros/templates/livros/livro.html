@@ -2,34 +2,47 @@
 {%block 'titulo'%}{{ livro.titulo }}{%endblock%}
 
 {%block 'conteudo'%}
-<div>
-<h3>{{ livro.titulo }}</h3>
-<h4 class="subtitulo">{{ livro.subtitulo }}</h4>
-<p class="autor-livro">{{ livro.autor }}</p>
-<p class="editor-livro">{{ livro.editora }}</p>
-<p class="sinopse">{{ livro.sinopse }}</p>
-</div>
-<aside>
-    <figure class="capa-livro">
-        <img src="{{ livro.capa }}" alt="{{ livro.titulo }}">
-    </figure>
-</aside>
-<div class="links-amazon">
-    <p class="anuncio-venda">
-        Compre seu exemplar deste livro na Amazon e ajude com o desenvolvimento do projeto da <a href="https://www.livrosviajantes.com.br" id="plv">Plataforma Livros Viajantes</a>!
-    </p>
-    {% for link in links %}
-    <div class="anuncio-livro">
-    <iframe
-        style="width:120px;height:240px;"
-        marginwidth="0"
-        marginheight="0"
-        scrolling="no"
-        frameborder="0" 
-        src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=BR&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=plv0a-20&language=pt_BR&marketplace=amazon&region=BR&{{ link }}&show_border=true&link_opens_in_new_window=true"
-    ></iframe>
+<div class="row">
+    <div class="col-sm">
+        <div class="card">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img class="card-img" src="{{ livro.capa }}" alt="{{ livro.titulo }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ livro.titulo }}</h4>
+                        <h5 class="card-subtitle">{{ livro.subtitulo }}</h5>
+                        <p class="card-text">
+                        <small class="text-muted">{{ livro.autor }}</small> &blacksquare;
+                        <small class="text-muted">{{ livro.editora }}</small>
+                        </p>
+                        <p class="card-text">{{ livro.sinopse }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    {% endfor %}
+    <div class="col-sm">
+        <p>
+        Compre seu exemplar deste livro na Amazon e ajude com o desenvolvimento do projeto 
+        da <a href="https://www.livrosviajantes.com.br" id="plv">Plataforma Livros Viajantes</a>!
+        </p>
+        <div class="anuncios">
+            {% for link in links %}
+            <div class="anuncio-livro">
+                <iframe
+                style="width:120px;height:240px;"
+                marginwidth="0"
+                marginheight="0"
+                scrolling="no"
+                frameborder="0" 
+                src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=BR&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=plv0a-20&language=pt_BR&marketplace=amazon&region=BR&{{ link }}&show_border=true&link_opens_in_new_window=true"
+                ></iframe>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {%endblock%}
 

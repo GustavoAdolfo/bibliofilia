@@ -4,18 +4,22 @@
 
 {%block 'conteudo'%}
 <h1>Autores</h1>
+<div class="listagem-autores">
 {% for autor in autores %}
-<div class="autor-foto">
-    <figure>
-        <img src="{{ autor.imagem }}" alt="{{ autor.nome }}">
-        <figcaption>
-            <span class="autor-nome">{{ autor.nome }}</span><br/>
-            <span class="autor-nacionalidade">{{ autor.pais_origem }}</span>
-            <span class="autor-link"><a href="{{autor.url_wiki">
+<div class="card autor">
+    <img src="{{ autor.imagem }}" alt="{{ autor.nome }}" class="autor-foto"/>
+    <div class="card-body">
+        <h5 class="card-title">{{autor.nome}}</h5>
+        <p class="card-text">
+            <span class="text-muted">{{ autor.pais_origem }}</span>
+            <span class="text-muted">
+                <a href="{{autor.url_wiki}}" class="card-link autor-link">
                 <img src="{% static 'imgs/wikipedia_icon_128px.png'%}" alt="Wikipédia" title="Wikipédia" />
-            </a></span>
-        </figcaption>
-    </figure>
-</div>
+                </a>
+            </span>
+        </p>
+    </div>
+</div>        
 {% endfor %}
+</div>
 {%endblock%}
