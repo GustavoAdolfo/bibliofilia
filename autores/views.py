@@ -1,15 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Autor
+from livros.models import Livro
 
 
 def index(request):
-    autores = Autor.objects.all()
+    autores = Autor.objects.order_by('nome').filter(
+        livro__disponivel=True).distinct('nome')
     return render(request, 'autores/index.html',
                   {'autores': autores})
-    return render(request, 'autores/index.html')
 
 
-def autor(request, autor_id):
-    autor = get_object_or_404(Autor, id=autor_id)
+def autor(request, aid):
+    autor = get_object_or_404(Autor, id=aid)
+    livros = autor.livro_set.filter(autor_id=aid,
+                                    disponivel=True)
     return render(request, 'autores/autor.html',
-                  {'livro': autor})
+                  {'autor': autor, 'livros': livros})

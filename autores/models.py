@@ -1,4 +1,5 @@
 from django.db import models
+# from livros.models import Livro
 
 
 class Autor(models.Model):
@@ -9,3 +10,6 @@ class Autor(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def count_livros(self):
+        return self.livro_set.filter(disponivel=True).count()

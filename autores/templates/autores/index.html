@@ -16,7 +16,9 @@
                 <a href="{{autor.url_wiki}}" class="card-link autor-link">
                 <img src="{% static 'imgs/wikipedia_icon_128px.png'%}" alt="Wikipédia" title="Wikipédia" />
                 </a>
-            </span>
+            </span> 
+            <span class="text-muted"><a href="{% url 'autores' %}{{autor.id}}">
+                {{ autor.count_livros }}</a></span>
         </p>
     </div>
 </div>        

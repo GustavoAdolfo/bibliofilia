@@ -1,9 +1,49 @@
 {%extends 'default.html'%}
+{% load static %}
 {%block 'titulo'%}{{ autor.nome }}{%endblock%}
 
 {%block 'conteudo'%}
-<div>
-<h3>{{ livro.nome }}</h3>
-
+<div class="card autor">
+    <img src="{{ autor.imagem }}" alt="{{ autor.nome }}" class="autor-foto"/>
+    <div class="card-body">
+        <h5 class="card-title">{{autor.nome}}</h5>
+        <p class="card-text">
+            <span class="text-muted">{{ autor.pais_origem }}</span>
+            <span class="text-muted">
+                <a href="{{autor.url_wiki}}" class="card-link autor-link">
+                <img src="{% static 'imgs/wikipedia_icon_128px.png'%}" alt="Wikipédia" title="Wikipédia" />
+                </a>
+            </span>
+        </p>
+    </div>
+</div>
+{% if livros %}
+<table class="table">
+    <thead>
+        <tr>
+            <td>Titulo / Subtitulo</td>
+            <td>Autor</td>
+            <td>Idioma</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for livro in livros %}
+        <tr class="{% if not livro.disponivel %}livro-indisponivel{% endif %}">
+            <td>
+                <a href="{% url 'livro' livro.id %}" class="livro">
+                <span class="titulo">
+                    {{ livro.titulo }}</span>
+                <br/>
+                <span class="subtitulo">{{ livro.subtitulo }}</span>
+                </a>
+            </td>
+            <td>{{ livro.autor }}</td>
+            <td>{{ livro.idioma }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot></tfoot>
+</table>
+{% endif %}
 {%endblock%}
 

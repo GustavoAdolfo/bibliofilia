@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='autores')
+    path('', views.index, name='autores'),
+    path('<int:aid>', views.autor, name='autor')
 ]

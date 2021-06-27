@@ -1,25 +1,12 @@
 {%extends 'default.html'%}
-{%block 'titulo'%}Livros{%endblock%}
+{%block 'titulo'%}Livros do Autor{%endblock%}
 
 {%block 'conteudo'%}
 <h1>Livros</h1>
-<div class="row">
-    <div class="col-12">
-        <form action="{% url 'busca' %}" method="get">
-            <div class="form-group row">
-                <div class="col-12">
-                    <input type="search" class="form-control" value=""
-                    id="search-book" placeholder="Pesquise por título ou subtítulo"
-                    name="termo"/>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 <table class="table">
     <thead>
         <tr>
-            <td>Título / Subtítulo</td>
+            <td>Titulo / Subtitulo</td>
             <td>Autor</td>
             <td>Idioma</td>
         </tr>
@@ -35,7 +22,7 @@
                 <span class="subtitulo">{{ livro.subtitulo }}</span>
                 </a>
             </td>
-            <td> <a href="{% url 'autores'%}{{livro.autor_id}}">{{ livro.autor }}</a></td>
+            <td>{{ livro.autor }}</td>
             <td>{{ livro.idioma }}</td>
         </tr>
         {% endfor %}

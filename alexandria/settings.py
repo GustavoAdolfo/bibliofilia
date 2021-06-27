@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from django.contrib.messages import constants
 from pathlib import Path
 import os
 
@@ -79,6 +80,7 @@ WSGI_APPLICATION = 'alexandria.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # TODO: Criar variáveis de ambiente para esses dados
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'alexandria',
@@ -134,3 +136,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Mensagens
+MESSAGE_TAGS = {
+    constants.ERROR: 'alert-danger',
+    constants.DEBUG: 'alert-light',
+    constants.INFO: 'alert-info',
+    constants.WARNING: 'alert-warning',
+    constants.SUCCESS: 'alert-success'
+}
