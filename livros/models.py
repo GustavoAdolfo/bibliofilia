@@ -15,7 +15,7 @@ class Livro(models.Model):
     capa = models.CharField(max_length=500, blank=True)
     autor = models.ForeignKey(Autor, on_delete=models.DO_NOTHING)
     editora = models.ForeignKey(Editora, on_delete=models.DO_NOTHING)
-    data_cadastro = models.DateTimeField(default=timezone.now)
+    data_cadastro = models.DateTimeField(default=timezone.utc)
 
     def __str__(self):
         return self.titulo

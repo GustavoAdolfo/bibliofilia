@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(os.getenv('SECRET'))
+SECRET_KEY = str(os.environ.get('SECRET'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'autores.apps.AutoresConfig',
     'livros.apps.LivrosConfig',
     'home.apps.HomeConfig',
-    'editoras.apps.EditorasConfig'
+    'editoras.apps.EditorasConfig',
+    'contas.apps.ContasConfig'
 ]
 
 MIDDLEWARE = [
@@ -83,11 +84,11 @@ DATABASES = {
     # TODO: Criar variáveis de ambiente para esses dados
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'alexandria',
-        'USER': 'alexandria',
-        'PASSWORD': 'Senha_Alexandria',
-        'HOST': '192.168.15.88',
-        'PORT': '5432',
+        'NAME': os.environ.get('DATABASE'),
+        'USER': os.environ.get("USER"),
+        'PASSWORD': os.environ.get("PASSWORD"),
+        'HOST': os.environ.get("HOST"),
+        'PORT': os.environ.get("PORT")
     }
 }
 
