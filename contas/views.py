@@ -1,14 +1,18 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Conta
-from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Perfil
+from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
+from .models import Perfil
+from django.db import transaction
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
     return render(request, 'contas/index.html')
 
 
+@login_required(login_url='/contas')
 def perfil(request, id):
     # conta = get_object_or_404(Conta, id=id)
     # return render(request, 'contas/perfil.html',
@@ -17,22 +21,44 @@ def perfil(request, id):
 
 
 def login(request):
-    return render(request, 'contas/login.html')
+    if request.method != 'POST':
+        return render(request, 'contas/index.html')
+
+    username = request.POST.get('email')
+    password = request.POST.get('senha')
+
+    user = auth.authenticate(request, username=username, password=password)
+    if not user:
+        messages.error(request, "E-mail ou senha inválidos!")
+        return render(request, 'contas/index.html')
+
+    auth.login(request, user)
+    messages.success(request, 'Bem vindo {}!'.format(user.first_name))
+    return redirect('/')
 
 
 def logout(request):
-    return render(request, 'contas/logout.html')
+    auth.logout(request)
+    messages.success(request, 'Você saiu da sua conta.')
+    return redirect('index')
 
 
+@login_required(login_url='/contas')
 def painel(request):
     return render(request, 'contas/painel.html')
 
 
 def cadastro(request):
+    return render(request, 'contas/cadastro.html')
+
+
+@transaction.atomic
+def registrar(request):
     if request.method != 'POST':
         return render(request, 'contas/index.html')
 
     nome = request.POST.get("nome")
+    sobrenome = request.POST.get("sobrenome")
     email = request.POST.get("email")
     celular = request.POST.get("celular")
     cep = request.POST.get("cep")
@@ -48,8 +74,10 @@ def cadastro(request):
     aceite_termos = request.POST.get("aceite-termos")
 
     campos_invalidos = []
-    if not nome or len(nome) < 9:
+    if not nome or len(nome) < 3:
         campos_invalidos.append('O campo NOME está inválido!')
+    if not sobrenome or len(sobrenome) < 3:
+        campos_invalidos.append('O campo SOBRENOME está inválido!')
     if not cep or len(cep) != 8:
         campos_invalidos.append('O campo CEP está inválido!')
     if not logradouro or len(logradouro) < 5:
@@ -89,4 +117,22 @@ def cadastro(request):
         return render(request, 'contas/index.html',
                       {'erros': campos_invalidos})
 
-    return render(request, 'contas/cadastro.html')
+    user = User.objects.create(
+        username=email,
+        email=email,
+        first_name=nome,
+        last_name=sobrenome)
+    user.set_password(senha)
+    user.save()
+    Perfil.objects.create(user=user,
+                          celular=celular,
+                          cep=cep,
+                          logradouro=logradouro,
+                          numero=numero,
+                          complemento=complemento,
+                          bairro=bairro,
+                          cidade=cidade,
+                          estado=estado,
+                          url_foto=foto_perfil  # SUBIR O ARQUIVO PARA ALGUM LUGAR E ENTÃO PASSAR A URL
+                          )
+    return render(request, 'contas/index.html', {'novo_cadastro': True})

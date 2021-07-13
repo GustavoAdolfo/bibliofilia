@@ -84,11 +84,11 @@ DATABASES = {
     # TODO: Criar variáveis de ambiente para esses dados
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE'),
-        'USER': os.environ.get("USER"),
-        'PASSWORD': os.environ.get("PASSWORD"),
-        'HOST': os.environ.get("HOST"),
-        'PORT': os.environ.get("PORT")
+        'NAME': "alexandria",
+        'USER': "alexandria",
+        'PASSWORD': "Senha_Alexandria",
+        'HOST': "192.168.15.88",
+        'PORT': 5432
     }
 }
 

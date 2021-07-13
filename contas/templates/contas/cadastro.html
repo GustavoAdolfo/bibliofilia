@@ -3,9 +3,60 @@
 {%block 'titulo'%}Autores{%endblock%}
 
 {%block 'conteudo'%}
-<h1>Cadastro efetuado com sucesso!</h1>
-<p>Informe o código de 8 caracteres que você recebeu por e-mail para confirmar sua conta,
-    seu e-mail e sua senha para efetuar login.
-</p>
-
+<h1>Cadastre-se</h1>
+<div id="cadastro">
+    <form action="{% url 'registrar' %}" class="form" method="POST" id="frm-cadastro">
+        {% csrf_token %}
+        <div class="text-field">Nome:
+            <input type="text" name="nome" id="tx-nome" value="{{ request.POST.nome }}">
+        </div>
+        <div class="text-field">Sobrenome:
+            <input type="text" name="sobrenome" id="tx-sobrenome" value="{{ request.POST.sobrenome }}">
+        </div>
+        <div class="text-field">Email:
+            <input type="email" name="email" id="tx-email" value="{{ request.POST.email }}">
+        </div>
+        <div class="text-field">Celular:
+            <input type="text" name="celular" id="tx-celular" value="{{ request.POST.celular }}">
+        </div>
+        <div class="text-field">CEP:
+            <input type="text" name="cep" id="tx-cep" value="{{ request.POST.cep }}">
+        </div>
+        <div class="text-field">Logradouro:
+            <input type="text" name="logradouro" id="tx-logradouro" value="{{ request.POST.logradouro }}">
+        </div>
+        <div class="text-field">Número:
+            <input type="text" name="numero" id="tx-numero" value="{{ request.POST.numero }}">
+        </div>
+        <div class="text-field">Complemento:
+            <input type="text" id="tx-complemento" name="complemento" value="{{ request.POST.complemento }}">
+        </div>
+        <div class="text-field">Bairro:
+            <input type="text" name="bairro" id="tx-bairro" value="{{ request.POST.bairro }}">
+        </div>
+        <div class="text-field">Cidade:
+            <input type="text" name="cidade" id="tx-cidade" value="{{ request.POST.cidade }}">
+        </div>
+        <div class="text-field">Estado:
+            <input type="text" name="estado" id="tx-estado" value="{{ request.POST.estado }}">
+        </div>
+        <div class="text-field">Foto de Perfil:
+            <input type="file" name="foto" id="foto-perfil" value="{{ request.POST.foto }}">
+        </div>
+        <div class="text-field">Senha:
+            <input type="password" name="senha" id="tx-senha">
+        </div>
+        <div class="text-field">Confirmação de Senha:
+            <input type="password" name="confirma-senha" id="tx-confirma-senha">
+        </div>
+        <div class="text-field">
+            <input type="checkbox" name="aceite-termos" id="ch-aceite-termos">
+            Li e concordo com os <a href="javascript:alert('termos de uso')" class="">Termos de Uso</a> e
+            com a <a href="" class="">Política de Privacidade</a>.
+        </div>
+        <div class="form-footer">
+            <input type="submit" value="cadastrar">
+        </div>
+    </form>
+</div>
 {%endblock%}

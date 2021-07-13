@@ -1,23 +1,23 @@
+from django.core.validators import MaxLengthValidator
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
-class Conta(models.Model):
-    nome = models.CharField(max_length=250)
-    email = models.CharField(max_length=500)
-    cep = models.CharField(max_length=8)
+class Perfil(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    celular = models.PositiveBigIntegerField()
+    cep = models.PositiveIntegerField()
     logradouro = models.CharField(max_length=50)
     numero = models.CharField(max_length=10, blank=True)
-    complemento = models.CharField(max_length=50, blank=True),
-    bairro = models.CharField(max_length=150),
-    cidade = models.CharField(max_length=100),
-    estado = models.CharField(max_length=2),
-    url_foto = models.CharField(max_length=300),
-    celular = models.IntegerField(),
-    senha = models.CharField(max_length=250),
-    data_cadastro = models.DateTimeField(default=timezone.utc),
-    data_alteracao = models.DateTimeField(default=timezone.utc),
-    data_aceite_termos = models.DateTimeField(default=timezone.utc)
+    complemento = models.CharField(max_length=50, blank=True)
+    bairro = models.CharField(max_length=150)
+    cidade = models.CharField(max_length=100)
+    estado = models.CharField(max_length=2, default='SP')
+    url_foto = models.CharField(max_length=300, blank=True, null=True)
+    data_cadastro = models.DateTimeField(default=timezone.now)
+    data_alteracao = models.DateTimeField(default=timezone.now)
+    data_aceite_termos = models.DateTimeField(default=timezone.now)
 
-    def __str__(self):
-        return self.nome
+    # def __str__(self):
+    #     return self.celular
