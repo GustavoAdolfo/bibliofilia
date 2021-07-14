@@ -25,7 +25,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for livro in autor.livro_set %}
+        {% for livro in livros %}
         <tr class="{% if not livro.disponivel %}livro-indisponivel{% endif %}">
             <td>
                 <a href="{% url 'livro' livro.id %}" class="livro">

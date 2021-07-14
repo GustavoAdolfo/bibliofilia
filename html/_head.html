@@ -1,50 +1,51 @@
 {% load static %}
+<header id="header-principal">
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">
-            <img src="{% static 'imgs/logo.png'%}" alt="Minhoteca" class="img-logo" title="Minhoteca"/></a>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'imgs/logo.png'%}" alt="Logo" class="img-logo" title="Minhoteca"/>
+            Minhoteca
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'index' %}">Home <!--span class="sr-only">(current)</span--></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'livros' %}">Livros</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'autores' %}">Autores</a>
-            </li>
-            {% if not user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'contas' %}">Entre ou Cadastre-se</a>
-            </li>
-            {% endif %}
-            <li class="nav-item">
-                <a class="nav-link disabled" href="{% url 'sobre' %}" tabindex="-1" aria-disabled="true">Sobre</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'livros' %}">Livros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'autores' %}">Autores</a>
+                </li>
+                {% if not user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contas' %}">Entre ou Cadastre-se</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="{% url 'sobre' %}" tabindex="-1" aria-disabled="true">Sobre</a>
+                </li>
             </ul>
-            <!-- <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
-            {% if user.is_authenticated %}
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ user.first_name }}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="{% url 'perfil' user.id %}">Editar Perfil</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
-                </ul>
-            </div>
-            {% endif %}
         </div>
+    
+        
+        {% if user.is_authenticated %}
+        <div id="usermenu" class="">
+            <div class="dropdown">
+                <button 
+                class="btn dropdown-toggle" type="button" id="dropdown-menu-usuario" 
+                data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ user.perfil.url_foto.url }}" alt="{{ user.first_name }}" title="{{ user.first_name }}">
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdown-menu-usuario">
+                    <button class="dropdown-item" type="button"><a class="dropdown-item" href="{% url 'perfil' user.id %}">Editar Perfil</a></button>
+                    <button class="dropdown-item" type="button"><a class="dropdown-item" href="#">Another action</a></button>
+                    <button class="dropdown-item" type="button"><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></button>
+                    </div>
+            </div>
+        </div>
+        {% endif %}
     </nav>
 
 </header>

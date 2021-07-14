@@ -14,10 +14,14 @@ def index(request):
 
 @login_required(login_url='/contas')
 def perfil(request, id):
-    # conta = get_object_or_404(Conta, id=id)
-    # return render(request, 'contas/perfil.html',
-    #               {'conta': conta})
-    return render(request, 'contas/perfil.html')
+    perfil = get_object_or_404(Perfil, user_id=id)
+    return render(request, 'contas/perfil.html', {'perfil': perfil})
+
+
+@login_required(login_url='/contas')
+@transaction.atomic
+def atualizar_perfil(request):
+    return render(request, 'contas/index.html')
 
 
 def login(request):
