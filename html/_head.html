@@ -2,16 +2,15 @@
 <header id="header-principal">
 
     <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="{% url 'index' %}">
-            <img src="{% static 'imgs/logo.png'%}" alt="Logo" class="img-logo" title="Minhoteca"/>
-            Minhoteca
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="{% static 'imgs/minhoteca_120.png'%}" alt="Logo" class="img-logo" title="Minhoteca" />
+            </a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'livros' %}">Livros</a>
                 </li>
@@ -22,30 +21,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'contas' %}">Entre ou Cadastre-se</a>
                 </li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="#">Seus Empréstimos</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Sair</a></li>
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="{% url 'sobre' %}" tabindex="-1" aria-disabled="true">Sobre</a>
-                </li>
             </ul>
-        </div>
-    
-        
-        {% if user.is_authenticated %}
-        <div id="usermenu" class="">
-            <div class="dropdown">
-                <button 
-                class="btn dropdown-toggle" type="button" id="dropdown-menu-usuario" 
-                data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ user.perfil.url_foto.url }}" alt="{{ user.first_name }}" title="{{ user.first_name }}">
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdown-menu-usuario">
-                    <button class="dropdown-item" type="button"><a class="dropdown-item" href="{% url 'perfil' user.id %}">Editar Perfil</a></button>
-                    <button class="dropdown-item" type="button"><a class="dropdown-item" href="#">Another action</a></button>
-                    <button class="dropdown-item" type="button"><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></button>
-                    </div>
-            </div>
-        </div>
-        {% endif %}
-    </nav>
 
-</header>
+            {% if user.is_authenticated %}
+            <div id="usermenu" class="">
+                <a href="{% url 'perfil' user.id %}">
+                    <img src="{{ user.perfil.url_foto.url }}" alt="{{ user.first_name }}"
+                    title="{{ user.first_name }}">
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+</header>    

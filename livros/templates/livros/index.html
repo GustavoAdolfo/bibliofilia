@@ -22,6 +22,7 @@
             <td>Título / Subtítulo</td>
             <td>Autor</td>
             <td>Idioma</td>
+            <td>Opções</td>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +38,19 @@
             </td>
             <td> <a href="{% url 'autores'%}{{livro.autor_id}}">{{ livro.autor }}</a></td>
             <td>{{ livro.idioma }}</td>
+            <td class="acoes-tabela">
+                <i class="fa-solid fa-user"></i>
+
+                <!-- Or you can use a <span> element, with classes applied in the same way -->
+                <span class="fa-solid fa-user"></span>
+                {% if livro.disponivel %}
+                <a href="#" class="link-acao" title="Solicitar empréstimo">
+                    <i class="fa-solid fa-star"></i></a>
+                {% else %}
+                <a href="#" class="link-acao" title="Pedir para ser o próximo">
+                    <i class="fa-solid fa-hand"></i></a>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
