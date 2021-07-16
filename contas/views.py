@@ -28,7 +28,7 @@ def login(request):
     if request.method != 'POST':
         return render(request, 'contas/index.html')
 
-    username = request.POST.get('email')
+    username = request.POST.get('login')
     password = request.POST.get('senha')
 
     user = auth.authenticate(request, username=username, password=password)

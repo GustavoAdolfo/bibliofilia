@@ -30,7 +30,9 @@
             {% if user.is_authenticated %}
             <div id="usermenu" class="">
                 <a href="{% url 'perfil' user.id %}">
+                    {% if user.perfil.url_foto %}
                     <img src="{{ user.perfil.url_foto.url }}" alt="{{ user.first_name }}"
+                    {% endif %}
                     title="{{ user.first_name }}">
                 </a>
             </div>

@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -397,33 +397,5 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Layer 2"
-     style="display:inline">
-    <g
-       id="g1211">
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:115.66072845px;line-height:1.25;font-family:'KG What A Time';-inkscape-font-specification:'KG What A Time, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#6c5d53;fill-opacity:1;stroke:#c8beb7;stroke-width:3.25501752;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter863)"
-         x="137.07257"
-         y="574.60553"
-         id="text859"
-         transform="matrix(1.0725949,0,0,0.96722624,-18.594095,-26.96437)"><tspan
-           sodipodi:role="line"
-           id="tspan857"
-           x="137.07257"
-           y="574.60553"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:115.66072845px;font-family:'KG What A Time';-inkscape-font-specification:'KG What A Time, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#6c5d53;stroke:#c8beb7;stroke-width:3.25501752;stroke-miterlimit:4;stroke-dasharray:none">Minhoteca</tspan></text>
-      <text
-         transform="scale(1.1261,0.88802058)"
-         id="text9651"
-         y="590.15387"
-         x="121.48955"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.24564362px;line-height:1.25;font-family:'KG What A Time';-inkscape-font-specification:'KG What A Time, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.45800003;fill:#e3dedb;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.40253541;stroke-miterlimit:4;stroke-dasharray:none"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.24564362px;font-family:'KG What A Time';-inkscape-font-specification:'KG What A Time, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#e3dedb;stroke:#4d4d4d;stroke-width:0.40253541;stroke-miterlimit:4;stroke-dasharray:none"
-           y="590.15387"
-           x="121.48955"
-           id="tspan9649"
-           sodipodi:role="line">Minhoteca</tspan></text>
-    </g>
-  </g>
+     style="display:inline" />
 </svg>

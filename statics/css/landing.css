@@ -1,0 +1,108 @@
+
+section#landing {
+    display: grid;
+    grid-template-columns: auto minmax(140px, 220px);
+    grid-template-rows: minmax(80px, 90px) auto;
+    grid-template-areas:
+      "header_landing header_landing"
+      "apresentacao barra_lateral";
+    grid-row-gap: 6px;
+    row-gap: 6px;
+    justify-content: start; 
+  }
+  
+  section#landing > header {
+    grid-area: header_landing;
+    border: 2px dashed red;
+    max-height: 80px;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+  section#landing > header h1, 
+  section#landing > header h2, 
+  section#landing > header h3, 
+  section#landing > header h4, 
+  section#landing > header h5, 
+  section#landing > header h6 {
+    padding: 6px;
+    background-color: #c99;
+  }
+  
+  section#landing > div.apresentacao {
+    grid-area: apresentacao;
+    padding: 12px;
+  }
+  section#landing > div.apresentacao .chamada {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 20px;
+    column-gap: 20px;
+    justify-content: start;
+    font-family: 'Indie Flower', cursive;
+    margin-bottom: 30px;
+  }
+  section#landing > div.apresentacao .chamada figure {
+      display: grid;
+      justify-content: center;
+      max-width: 300px;
+    }
+  section#landing > div.apresentacao .chamada figure img{
+      height: auto;
+      width: 100%;
+  }
+  section#landing > div.apresentacao .chamada figure figcaption {
+      font-size: 2em;
+      font-weight: bolder;
+      letter-spacing: .2em;
+      font-style: italic;
+      text-align: center;
+      text-shadow: 1px 2px 3px #3594ff;
+  }
+  section#landing > div.apresentacao .chamada p {
+    font-size: 1.5em;
+    font-weight: 600;
+  }
+
+  section#landing > div.apresentacao > div.mapa {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 1fr;
+      grid-column-gap: 20px;
+      column-gap: 20px;
+      justify-content: start;
+  }
+
+  section#landing > div.apresentacao > #mapa-raio {
+      max-width: 300px;
+      height: auto;
+      padding: 6px;
+}
+section#landing > div.apresentacao > #mapa-raio figcaption {
+    margin-top: 4px;
+}
+
+  
+  section#landing > aside {
+    grid-area: barra_lateral;
+    padding: 4px;
+  }
+  
+  section#landing > aside .recados {
+    margin-bottom: 20px;
+    padding: 6px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: .85rem;
+    background-color: #f0f8ff;
+    box-shadow: -3px 2px 5px #a9a9a9;
+  
+  }
+  
+  section#landing > aside .recados h5 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: .9rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+  }

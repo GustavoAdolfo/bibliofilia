@@ -19,6 +19,7 @@ class Perfil(models.Model):
     data_cadastro = models.DateTimeField(default=timezone.now)
     data_alteracao = models.DateTimeField(default=timezone.now)
     data_aceite_termos = models.DateTimeField(default=timezone.now)
+    permitir_emprestimo = models.BooleanField(default=False)
 
     # def __str__(self):
     #     return self.celular
