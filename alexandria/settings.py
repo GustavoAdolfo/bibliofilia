@@ -27,7 +27,7 @@ SECRET_KEY = str(os.environ.get('SECRET'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.15.100']
 
 
 # Application definition
@@ -84,10 +84,10 @@ DATABASES = {
     # TODO: Criar variáveis de ambiente para esses dados
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "alexandria",
-        'USER': "alexandria",
-        'PASSWORD': "Senha_Alexandria",
-        'HOST': "192.168.15.88",
+        'NAME': "minhoteca",
+        'USER': "postgres",
+        'PASSWORD': "postgresql",
+        'HOST': "192.168.15.100",
         'PORT': 5432
     }
 }
