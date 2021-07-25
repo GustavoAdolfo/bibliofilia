@@ -9,18 +9,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item {% if 'livros' in request.path %}active{% endif %}">
               <a class="nav-link" href="{% url 'livros' %}">Livros <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'autores' %}">Autores</a></li>
+            <li class="nav-item {% if 'autores' in request.path %}active{% endif %}"><a class="nav-link" href="{% url 'autores' %}">Autores</a></li>
             {% if not user.is_authenticated %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'contas' %}">Entre ou Cadastre-se</a></li>
+            <li class="nav-item {% if 'contas' in request.path %}active{% endif %}">
+              <a class="nav-link" href="{% url 'contas' %}">Entre ou Cadastre-se</a></li>
             {% else %}
-              <li class="nav-item"><a class="nav-link" href="#">Seus Empréstimos</a></li>
+              <li class="nav-item {% if 'emprestimos' in request.path %}active{% endif %}">
+                <a class="nav-link" href="#">Seus Empréstimos</a></li>
               <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Sair</a></li>
             {% endif %}
             {% if user.is_authenticated %}
-            <li class="nav-item" id="link-perfil">
+            <li class="nav-item {% if 'perfil' in request.path %}active{% endif %}" id="link-perfil">
               <a class="nav-link" href="{% url 'perfil' user.id %}">Perfil</a>
             </li>
             {% endif %}

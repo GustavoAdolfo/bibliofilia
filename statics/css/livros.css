@@ -1,114 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-* {
-  box-sizing: border-box;
+#lista-livros {
+  font-size: 90%;
 }
-
-body {
-  margin: 0;
-  background-color: #f7f4f4;
-  font-size: 1.1em;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Baloo Tammudu 2', cursive;
-}
-
-body>#container {
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: minmax(80px, 90px) auto 1fr;
-  grid-template-areas: "header" "main" "footer";
-  grid-row-gap: 6px;
-  row-gap: 6px;
-  justify-content: start;
-}
-
-body>#container>header {
-  grid-area: header;
-  background-color: #205020;
-  color: #fff;
-}
-
-#container>header .collapse {
-  background-color: #205020;
-  color: #fff;
-}
-
-body>#container>header nav #navbarNav #link-perfil {
-  display: none;
-}
-
-body>#container>footer {
-  grid-area: footer;
-  border-top: 1px solid #728172;
-  background-color: #daf0da;
-}
-
-body>#container>main {
-  grid-area: main;
-  align-self: stretch;
-}
-
-#usermenu {
-  width: 60px;
-  height: 60px;
-  display: block;
-  border-radius: 25px;
-  margin-right: 20px;
-}
-
-#usermenu img {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 25px;
-  box-shadow: 2px 2px 3px #508050;
-}
-
-.img-logo {
-  max-width: 60px;
-  max-height: 60px;
-}
-
-.nav-item .nav-link {
-  color: #ebf5eb;
-  padding: 4px;
-  font-size: 1.15em;
+#lista-livros a {
+  text-decoration: none;
+  color: #303060;
   font-weight: 500;
 }
 
-.nav-item .nav-link:hover {
-  text-decoration: underline;
-}
-
-#footer-principal {
-  font-size: .8em;
-}
-
-#footer-principal a {
-  color: #205020;
-}
-
-#footer-principal #navbar-footer {
-  text-align: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-column-gap: 3px;
-  column-gap: 3px;
-  justify-items: stretch;
-  align-items: stretch;
-  justify-content: start;
-}
-#footer-principal #navbar-footer div {
-  height: 100%;
-}
-#footer-principal #navbar-footer div a {
-  height: 100%;
-  white-space: nowrap;
-  padding: 1%;
-}
 
 /* ----------- iPhone 4 and 4S ----------- */
 
@@ -117,17 +15,12 @@ body>#container>main {
   and (min-device-width: 320px) 
   and (max-device-width: 480px)
   and (-webkit-min-device-pixel-ratio: 2) {
-    body {
-      font-size: 0.9em;
+    #lista-livros {
+      font-size: 100%;
     }
-    #usermenu {
+    #lista-livros td:not(.titulo),
+    #lista-livros th:not(.titulo) {
       display: none;
-    }
-    #footer-principal #navbar-footer {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-    #footer-principal #navbar-footer div {
-      max-height: 60px;
     }
 }
 
@@ -137,12 +30,7 @@ body>#container>main {
   and (max-device-width: 480px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: portrait) {
-    #footer-principal #navbar-footer {     
-    }
-    #footer-principal #navbar-footer div {
-    }
-    #footer-principal #navbar-footer div a {
-    }
+    
 }
 
 /* Landscape */

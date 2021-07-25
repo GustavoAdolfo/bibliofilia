@@ -1,323 +1,259 @@
 section#landing {
-    display: grid;
-    grid-template-columns: auto minmax(160px, 220px);
-    grid-template-rows: minmax(80px, 90px) auto;
-    grid-template-areas:
-      "header_landing header_landing"
-      "apresentacao barra_lateral";
-    grid-row-gap: 6px;
-    row-gap: 6px;
-    justify-content: start; 
-  }
-  section#landing > header {
-    grid-area: header_landing;
-    max-height: 80px;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    border-bottom: 1px solid #a9a9a9;
-    text-align: center;
-  }
-  section#landing > header h1 {
-    padding: 10px;
-    height: 100%;
-  }
-  
-  section#landing > div.apresentacao {
-    grid-area: apresentacao;
-    padding: 6px;
-  }
-  section#landing > div.apresentacao .chamada {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr;
-    grid-column-gap: 20px;
-    column-gap: 20px;
-    justify-content: start;
-    font-family: 'Indie Flower', cursive;
-    margin-bottom: 30px;
-    padding: 20px;
-  }
-  section#landing > div.apresentacao .chamada figure {
-    max-width: 280px;
-  }
-section#landing > div.apresentacao .chamada figure img{
-    height: auto;
-    width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(160px, 220px);
+  grid-template-rows: minmax(80px, 90px) auto;
+  grid-template-areas: "header_landing header_landing" "apresentacao barra_lateral";
+  grid-row-gap: 6px;
+  row-gap: 6px;
+  justify-content: start;
 }
-section#landing > div.apresentacao .chamada figure figcaption {
-    font-size: 2em;
-    font-weight: bolder;
-    letter-spacing: .2em;
-    font-style: italic;
-    text-align: center;
-    text-shadow: 1px 2px 3px #3594ff;
+
+section#landing>header {
+  grid-area: header_landing;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  border-bottom: 1px solid #a9a9a9;
+  text-align: center;
+  padding: 6px;
 }
-section#landing > div.apresentacao .chamada p {
+
+section#landing>header h1 {
+  height: 100%;
+}
+
+section#landing>div.apresentacao {
+  grid-area: apresentacao;
+  padding: 6px;
+}
+
+section#landing>div.apresentacao .chamada {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  column-gap: 20px;
+  justify-content: start;
+  font-family: 'Indie Flower', cursive;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+section#landing>div.apresentacao .chamada figure {
+  max-width: 280px;
+}
+
+section#landing>div.apresentacao .chamada figure img {
+  height: auto;
+  width: 100%;
+}
+
+section#landing>div.apresentacao .chamada figure figcaption {
+  font-size: 2em;
+  font-weight: bolder;
+  letter-spacing: .2em;
+  font-style: italic;
+  text-align: center;
+  text-shadow: 1px 2px 3px #3594ff;
+}
+
+section#landing>div.apresentacao .chamada p {
   font-size: 1.5em;
   font-weight: 600;
   padding: 20px;
 }
 
-section#landing > div.apresentacao > div.mapa {
+section#landing>div.apresentacao>div.mapa {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr;
   grid-column-gap: 20px;
   column-gap: 20px;
   justify-content: start;
-
-    grid-template-rows: 1fr;
-    grid-column-gap: 20px;
-    column-gap: 20px;
-    justify-content: start;
-    font-family: 'Indie Flower', cursive;
-    margin-bottom: 30px;
-    padding: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
 }
-section#landing > div.apresentacao > #mapa-raio {
+
+section#landing>div.apresentacao #descricao {}
+
+section#landing>div.apresentacao>div.mapa #mapa-raio {
   max-width: 300px;
   height: auto;
   padding: 6px;
 }
-section#landing > div.apresentacao > #mapa-raio figcaption {
-margin-top: 4px;
+
+section#landing>div.apresentacao>div.mapa #mapa-raio figcaption {
+  margin-top: 4px;
 }
-section#landing > div.apresentacao > #mapa-raio img {
+
+section#landing>div.apresentacao>div.mapa #mapa-raio img {
   width: 100%;
   height: auto;
 }
 
-section#landing > aside {
+section#landing>aside {
   grid-area: barra_lateral;
   padding: 4px;
 }
-/*   
 
-
-
-section#landing > aside .recados {
+section#landing>aside .recados {
   margin-bottom: 20px;
   padding: 6px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: .85rem;
+  font-size: .9em;
   background-color: #f0f8ff;
   box-shadow: -3px 2px 5px #a9a9a9;
-
 }
 
-section#landing > aside .recados h5 {
+section#landing>aside .recados h5 {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: .9rem;
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: .05em;
-} */
+  /* background-color: #e7e7e7; */
+  padding: 4px;
+}
 
+section#landing>aside .recados .aside-alerta {
+  text-shadow: 1px 1px 5px rgb(236, 138, 138);
+  font-weight: 500;
+}
 
 /* ----------- iPhone 4 and 4S ----------- */
 
 /* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2) {
-    
-    section#landing {
-      grid-auto-flow: row;
-      grid-row-gap: 3px;
-      row-gap: 3px;
-      grid-template-areas:
-      "header_landing"
-      "apresentacao"
-      " barra_lateral";
-    }
-    section#landing > header {
-      grid-area: header_landing;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-    section#landing header h1 {
-      font-size: 1.35em;
-    }
 
-    section#landing > div.apresentacao {
-      grid-area: apresentacao;
-    }
-    section#landing > div.apresentacao .chamada {
-      grid-auto-flow: row;
-      grid-template-columns: 1fr;
-      grid-row-gap: 4px;
-      row-gap: 4px;
-      padding: 6px;
-    }
-
-    section#landing > div.apresentacao .chamada figure {
-      display: none;
-    }
-  section#landing > div.apresentacao .chamada figure img{
-      display: none;
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+  section#landing {
+    grid-template-columns: auto;
+    grid-auto-flow: row;
+    grid-row-gap: 3px;
+    row-gap: 3px;
+    grid-template-areas: "header_landing" "apresentacao" "barra_lateral";
   }
-  
-  section#landing > div.apresentacao .chamada p {
+  section#landing>header {
+    grid-area: header_landing;
+    text-align: left;
+  }
+  section#landing h1 {
+    font-size: 1.5em;
+  }
+  section#landing h2 {
+    font-size: 1.4em;
+  }
+  section#landing>div.apresentacao {
+    grid-area: apresentacao;
+  }
+  section#landing>div.apresentacao .chamada {
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    grid-row-gap: 4px;
+    row-gap: 4px;
+    padding: 6px;
+  }
+  section#landing>div.apresentacao .chamada figure {
+    display: none;
+  }
+  section#landing>div.apresentacao .chamada figure img {
+    display: none;
+  }
+  section#landing>div.apresentacao .chamada p {
     font-size: 1.1em;
     font-weight: 500;
     padding: 4px;
   }
-  section#landing > div.apresentacao > div.mapa {
+  section#landing>div.apresentacao>div.mapa {
     grid-template-columns: 1fr;
     grid-auto-flow: row;
     grid-row-gap: 10px;
     row-gap: 10px;
   }
-  section#landing > div.apresentacao > #descricao {
+  section#landing>div.apresentacao #descricao {
     grid-row: 2 / 3;
   }
-  section#landing > div.apresentacao > #mapa-raio {
-    width: 120px;
+  section#landing>div.apresentacao #mapa-raio {
+    max-width: 300px;
     height: auto;
     padding: 3px;
     grid-row: 1 / 2;
   }
-  section#landing > div.apresentacao > #mapa-raio figcaption {
-  margin-top: 3px;
+  section#landing>div.apresentacao #mapa-raio figcaption {
+    line-height: 110%;
+    font-size: .8em;
   }
-
-  section#landing > aside {
+  section#landing>aside {
     grid-area: barra_lateral;
+  }
+  section#landing>aside .recados h5 {
+    font-size: 1em;
   }
 }
 
 /* Portrait */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) {
-    #footer-principal #navbar-footer {     
-    }
-    #footer-principal #navbar-footer div {
-    }
-    #footer-principal #navbar-footer div a {
-    }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  #footer-principal #navbar-footer {}
+  #footer-principal #navbar-footer div {}
+  #footer-principal #navbar-footer div a {}
 }
 
 /* Landscape */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) {
 
-}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {}
 
 /* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
 
 /* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 568px)
-  and (-webkit-min-device-pixel-ratio: 2) {
 
-}
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {}
 
 /* Portrait */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 568px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) {
-}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {}
 
 /* Landscape */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 568px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) {
 
-}
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {}
 
 /* ----------- iPhone 6, 6S, 7 and 8 ----------- */
 
 /* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2) { 
 
-}
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {}
 
 /* Portrait */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) { 
 
-}
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {}
 
 /* Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) { 
 
-}
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {}
 
 /* ----------- iPhone 6+, 7+ and 8+ ----------- */
 
 /* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3) { 
 
-}
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {}
 
 /* Portrait */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: portrait) { 
 
-}
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {}
 
 /* Landscape */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: landscape) { 
 
-}
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {}
 
 /* ----------- iPhone X ----------- */
 
 /* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 812px) 
-  and (-webkit-min-device-pixel-ratio: 3) { 
 
-}
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {}
 
 /* Portrait */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 812px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: portrait) { 
 
-}
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {}
 
 /* Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 812px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: landscape) { 
 
-}
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {}
