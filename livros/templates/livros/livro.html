@@ -2,8 +2,8 @@
 {%block 'titulo'%}{{ livro.titulo }}{%endblock%}
 
 {%block 'conteudo'%}
-<div class="row">
-    <div class="col-sm">
+<section id="exemplar">
+    <div class="">
         <div class="card">
             <div class="row no-gutters">
                 <div class="col-md-4">
@@ -14,8 +14,17 @@
                         <h4 class="card-title">{{ livro.titulo }}</h4>
                         <h5 class="card-subtitle">{{ livro.subtitulo }}</h5>
                         <p class="card-text">
-                        <small class="text-muted">{{ livro.autor }}</small> &blacksquare;
-                        <small class="text-muted">{{ livro.editora }}</small>
+                            <a href="{% url 'autores'%}{{livro.autor_id}}" class="card-link">{{ livro.autor }}</a>
+                            &blacksquare;
+                            <small class="text-muted">{{ livro.editora }}</small>
+                            &blacksquare;
+                            {% if not livro.emprestado %}
+                            <a href="#" class="card-link text-success" title="Solicitar empréstimo">
+                                <i class="fas fa-hand-point-up"></i></a>
+                            {% else %}
+                            <a href="#" class="card-link text-warning" title="Pedir para ser o próximo">
+                                <i class="fas fa-hand-paper"></i></a>
+                            {% endif %}
                         </p>
                         <p class="card-text">{{ livro.sinopse }}</p>
                     </div>
@@ -23,9 +32,9 @@
             </div>
         </div>
     </div>
-    <div class="col-sm">
+    <aside>
         <p>
-        Compre seu exemplar deste livro na Amazon e ajude com o desenvolvimento do projeto 
+        Compre seu exemplar deste e de outros livros na Amazon e ajude com o desenvolvimento do projeto 
         da <a href="https://www.livrosviajantes.com.br" id="plv">Plataforma Livros Viajantes</a>!
         </p>
         <div class="anuncios">
@@ -42,7 +51,7 @@
             </div>
             {% endfor %}
         </div>
-    </div>
-</div>
+    </aside>
+</section>
 {%endblock%}
 

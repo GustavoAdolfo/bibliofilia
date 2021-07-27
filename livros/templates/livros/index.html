@@ -2,6 +2,7 @@
 {%block 'titulo'%}Livros{%endblock%}
 
 {%block 'conteudo'%}
+<section id="livros">
 <h1>Livros</h1>
 <div class="row">
     <div class="col-12">
@@ -25,33 +26,30 @@
             <th class="titulo">Título / Subtítulo</th>
             <th>Autor</th>
             <th>Idioma</th>
-            <th>Opções</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
         {% for livro in livros %}
-        <tr class="{% if not livro.disponivel %}livro-indisponivel{% endif %}">
-            <th class="titulo">
-                <a href="{% url 'livro' livro.id %}" class="livro">
+        <tr class="{% if livro.emprestado %}bg-light{% endif %}">
+            <td class="titulo">
+                <a href="{% url 'livro' livro.id %}" class="livro {% if livro.emprestado %}text-muted{% endif %}">
                 <span class="titulo">
                     {{ livro.titulo }}</span>
                 <br/>
                 <span class="subtitulo">{{ livro.subtitulo }}</span>
                 </a>
             </td>
-            <td> <a href="{% url 'autores'%}{{livro.autor_id}}">{{ livro.autor }}</a></td>
-            <td>{{ livro.idioma }}</td>
-            <td class="acoes-tabela">
-                <i class="fa-solid fa-user"></i>
-
-                <!-- Or you can use a <span> element, with classes applied in the same way -->
-                <span class="fa-solid fa-user"></span>
-                {% if livro.disponivel %}
-                <a href="#" class="link-acao" title="Solicitar empréstimo">
-                    <i class="fa-solid fa-star"></i></a>
+            <td> <a href="{% url 'autores'%}{{livro.autor_id}}"
+                class="{% if livro.emprestado %}text-muted{% endif %}">{{ livro.autor }}</a></td>
+            <td class="{% if livro.emprestado %}text-muted{% endif %}">{{ livro.idioma }}</td>
+            <td class="text-center">
+                {% if not livro.emprestado %}
+                <a href="#" class="text-success" title="Solicitar empréstimo">
+                    <i class="fas fa-hand-point-up"></i></a>
                 {% else %}
-                <a href="#" class="link-acao" title="Pedir para ser o próximo">
-                    <i class="fa-solid fa-hand"></i></a>
+                <a href="#" class="text-warning" title="Pedir para ser o próximo">
+                    <i class="fas fa-hand-paper"></i></a>
                 {% endif %}
             </td>
         </tr>
@@ -93,4 +91,5 @@
         {% endif %}
     </ul>
 </nav>
+</section>
 {%endblock%}

@@ -10,6 +10,7 @@ class Livro(models.Model):
     subtitulo = models.CharField(max_length=150, blank=True)
     idioma = models.CharField(max_length=30, default='Português')
     disponivel = models.BooleanField(default=False)
+    emprestado = models.BooleanField(default=False)
     sinopse = models.CharField(max_length=2000, blank=True)
     link_amazon = models.CharField(max_length=500, blank=True)
     capa = models.CharField(max_length=500, blank=True)

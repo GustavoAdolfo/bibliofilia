@@ -5,7 +5,7 @@
 
 body {
   margin: 0;
-  background-color: #d9d9d9;
+  background-color: #f7f4f4;
   font-size: 1.1em;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -28,12 +28,22 @@ body>#container {
 body>#container>header {
   grid-area: header;
   background-color: #205020;
+  color: #fff;
+}
+
+#container>header .collapse {
+  background-color: #205020;
+  color: #fff;
+}
+
+body>#container>header nav #navbarNav #link-perfil {
+  display: none;
 }
 
 body>#container>footer {
   grid-area: footer;
-  border-top: 1px solid #529252;
-  background-color: #a0c5a0;
+  border-top: 1px solid #728172;
+  background-color: #daf0da;
 }
 
 body>#container>main {
@@ -75,7 +85,6 @@ body>#container>main {
 
 #footer-principal {
   font-size: .8em;
-  display: grid;
 }
 
 #footer-principal a {
@@ -85,24 +94,20 @@ body>#container>main {
 #footer-principal #navbar-footer {
   text-align: center;
   display: grid;
-  grid-template-columns: repeat(3, minmax(300px, 1fr));
-  grid-column-gap: 3px;;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-column-gap: 3px;
   column-gap: 3px;
   justify-items: stretch;
   align-items: stretch;
-  justify-content: stretch;
-  /* overflow: hidden; */
+  justify-content: start;
 }
 #footer-principal #navbar-footer div {
   height: 100%;
-  /* overflow: hidden; */
-  border: 1px dotted red;
 }
 #footer-principal #navbar-footer div a {
   height: 100%;
   white-space: nowrap;
   padding: 1%;
-  border: 1px dashed blue;
 }
 
 /* ----------- iPhone 4 and 4S ----------- */
@@ -112,7 +117,18 @@ body>#container>main {
   and (min-device-width: 320px) 
   and (max-device-width: 480px)
   and (-webkit-min-device-pixel-ratio: 2) {
-
+    body {
+      font-size: 0.9em;
+    }
+    #usermenu {
+      display: none;
+    }
+    #footer-principal #navbar-footer {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    #footer-principal #navbar-footer div {
+      max-height: 60px;
+    }
 }
 
 /* Portrait */
@@ -121,6 +137,12 @@ body>#container>main {
   and (max-device-width: 480px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: portrait) {
+    #footer-principal #navbar-footer {     
+    }
+    #footer-principal #navbar-footer div {
+    }
+    #footer-principal #navbar-footer div a {
+    }
 }
 
 /* Landscape */
@@ -242,3 +264,5 @@ body>#container>main {
   and (orientation: landscape) { 
 
 }
+
+

@@ -3,25 +3,38 @@
 {%block 'titulo'%}Autores{%endblock%}
 
 {%block 'conteudo'%}
-<h1>Autores</h1>
-<div class="listagem-autores">
-{% for autor in autores %}
-<div class="card autor">
-    <img src="{{ autor.imagem }}" alt="{{ autor.nome }}" class="autor-foto"/>
-    <div class="card-body">
-        <h5 class="card-title">{{autor.nome}}</h5>
-        <p class="card-text">
-            <span class="text-muted">{{ autor.pais_origem }}</span>
-            <span class="text-muted">
-                <a href="{{autor.url_wiki}}" class="card-link autor-link">
-                <img src="{% static 'imgs/wikipedia_icon_128px.png'%}" alt="Wikipédia" title="Wikipédia" />
-                </a>
-            </span> 
-            <span class="text-muted"><a href="{% url 'autores' %}{{autor.id}}">
-                {{ autor.count_livros }}</a></span>
-        </p>
+<section id="autores">
+    <h1>Autores</h1>
+    <div class="listagem-autores">
+        {% for autor in autores %}
+        <div class="card autor">
+            {% if autor.autor.imagem %}
+            <img src="{{ autor.autor.imagem }}" alt="{{ autor.autor.nome }}" class="autor-foto"/>
+            {% else %}
+            <img src="{% static 'imgs/blank-profile-picture-973460.svg'%}" 
+            alt="{{ autor.autor.nome }}" class="autor-foto"/>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{autor.autor.nome}}</h5>
+                <p class="card-text">
+                    {% if autor.flag %}
+                    <img class="icone" src="{{autor.flag}}" alt="{{ autor.autor.pais_origem }}" title="{{ autor.autor.pais_origem }}"/>
+                    {% else %}
+                    <span class="text-muted">{{ autor.autor.pais_origem }}</span>
+                    {% endif %}                
+                    <span class="text-muted">
+                        <a href="{{autor.url_wiki}}" class="card-link autor-link">
+                        <img class="icone" src="{% static 'imgs/wikipedia_icon_128px.png'%}" 
+                        alt="Wikipédia" title="Wikipédia" />
+                        </a>
+                    </span> 
+                    <span class="text-muted">Livros: 
+                        <a href="{% url 'autores' %}{{autor.autor.id}}">{{ autor.autor.count_livros }}</a>
+                    </span>
+                </p>
+            </div>          
+        </div>
+        {% endfor %}
     </div>
-</div>        
-{% endfor %}
-</div>
+</section>
 {%endblock%}

@@ -7,6 +7,33 @@
   font-weight: 500;
 }
 
+#livros .pagination a.page-link {
+  background-color: #205020;
+}
+
+#exemplar {
+  font-size: .95em;
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  grid-column-gap: 6px;
+  column-gap: 6px;
+  justify-content: start;
+}
+#exemplar aside {
+  padding: 4px;
+}
+#exemplar aside p{
+  font-size: 80%;
+}
+#exemplar .anuncios {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+#exemplar .anuncios .anuncio-livro {
+  padding: 2px;
+}
 
 /* ----------- iPhone 4 and 4S ----------- */
 
@@ -21,6 +48,13 @@
     #lista-livros td:not(.titulo),
     #lista-livros th:not(.titulo) {
       display: none;
+    }
+    #livros .pagination a.page-link {
+      font-size: 60%;
+    }
+
+    #exemplar {
+      grid-template-columns: 1fr;
     }
 }
 
