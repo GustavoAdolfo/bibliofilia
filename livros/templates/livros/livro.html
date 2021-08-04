@@ -12,18 +12,21 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h4 class="card-title">{{ livro.titulo }}</h4>
-                        <h5 class="card-subtitle">{{ livro.subtitulo }}</h5>
+                        <h5 class="card-subtitle">{{ livro.subtitulo }}                            
+                        </h5>
                         <p class="card-text">
                             <a href="{% url 'autores'%}{{livro.autor_id}}" class="card-link">{{ livro.autor }}</a>
                             &blacksquare;
                             <small class="text-muted">{{ livro.editora }}</small>
-                            &blacksquare;
+                            <br>
                             {% if not livro.emprestado %}
                             <a href="#" class="card-link text-success" title="Solicitar empréstimo">
-                                <i class="fas fa-hand-point-up"></i></a>
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
                             {% else %}
                             <a href="#" class="card-link text-warning" title="Pedir para ser o próximo">
-                                <i class="fas fa-hand-paper"></i></a>
+                                <i class="fas fa-hand-point-up"></i>
+                            </a>
                             {% endif %}
                         </p>
                         <p class="card-text">{{ livro.sinopse }}</p>

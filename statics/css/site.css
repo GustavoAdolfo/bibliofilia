@@ -110,6 +110,10 @@ body>#container>main {
   padding: 1%;
 }
 
+.pagination a.page-link {
+  background-color: #205020;
+}
+
 /* ----------- iPhone 4 and 4S ----------- */
 
 /* Portrait and Landscape */
@@ -129,6 +133,10 @@ body>#container>main {
     #footer-principal #navbar-footer div {
       max-height: 60px;
     }
+    .pagination a.page-link {
+      font-size: 60%;
+    }
+
 }
 
 /* Portrait */

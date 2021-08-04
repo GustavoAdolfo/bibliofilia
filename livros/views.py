@@ -9,7 +9,7 @@ from django.contrib import messages
 
 def index(request):
     livros = Livro.objects.order_by('titulo').filter(disponivel=True)
-    paginator = Paginator(livros, 10)
+    paginator = Paginator(livros, 12)
     pg = request.GET.get('pg')
     livros = paginator.get_page(pg)
     return render(request, 'livros/index.html',

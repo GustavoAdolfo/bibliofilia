@@ -7,10 +7,6 @@
   font-weight: 500;
 }
 
-#livros .pagination a.page-link {
-  background-color: #205020;
-}
-
 #exemplar {
   font-size: .95em;
   display:grid;
@@ -49,10 +45,6 @@
     #lista-livros th:not(.titulo) {
       display: none;
     }
-    #livros .pagination a.page-link {
-      font-size: 60%;
-    }
-
     #exemplar {
       grid-template-columns: 1fr;
     }

@@ -8,33 +8,73 @@
     <div class="listagem-autores">
         {% for autor in autores %}
         <div class="card autor">
-            {% if autor.autor.imagem %}
-            <img src="{{ autor.autor.imagem }}" alt="{{ autor.autor.nome }}" class="autor-foto"/>
-            {% else %}
-            <img src="{% static 'imgs/blank-profile-picture-973460.svg'%}" 
-            alt="{{ autor.autor.nome }}" class="autor-foto"/>
-            {% endif %}
+            <a href="{% url 'autores' %}{{autor.autor.id}}" class="card-link autor-link">
+                {% if autor.autor.imagem %}
+                <img src="{{ autor.autor.imagem }}" alt="{{ autor.autor.nome }}" class="autor-foto" />
+                {% else %}
+                <img src="{% static 'imgs/blank-profile-picture-973460.svg'%}" alt="{{ autor.autor.nome }}"
+                    class="autor-foto" />
+                {% endif %}
+            </a>
             <div class="card-body">
-                <h5 class="card-title">{{autor.autor.nome}}</h5>
+                <h6 class="card-title">
+                    <a href="{% url 'autores' %}{{autor.autor.id}}" class="card-link autor-link">
+                        {{autor.autor.nome}}
+                    </a>
+                    {% if autor.autor.url_wiki %}
+                    &nbsp;
+                    <small class="text-muted">
+                        <a href="{{ autor.autor.url_wiki }}" target="_blank" class="card-link autor-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </small>
+                    {% endif %}
+                </h6>
                 <p class="card-text">
                     {% if autor.flag %}
-                    <img class="icone" src="{{autor.flag}}" alt="{{ autor.autor.pais_origem }}" title="{{ autor.autor.pais_origem }}"/>
+                    <img class="icone" src="{{autor.flag}}" alt="{{ autor.autor.pais_origem }}"
+                        title="{{ autor.autor.pais_origem }}" />
                     {% else %}
                     <span class="text-muted">{{ autor.autor.pais_origem }}</span>
-                    {% endif %}                
-                    <span class="text-muted">
-                        <a href="{{autor.url_wiki}}" class="card-link autor-link">
-                        <img class="icone" src="{% static 'imgs/wikipedia_icon_128px.png'%}" 
-                        alt="Wikipédia" title="Wikipédia" />
-                        </a>
-                    </span> 
-                    <span class="text-muted">Livros: 
-                        <a href="{% url 'autores' %}{{autor.autor.id}}">{{ autor.autor.count_livros }}</a>
-                    </span>
+                    {% endif %}
+                    <span class="text-secondary"><i class="fas fa-book"></i> {{ autor.autor.count_livros }}</span>
                 </p>
-            </div>          
+            </div>
         </div>
         {% endfor %}
     </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if autores.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?pg=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?pg={{ autores.previous_page_number }}">
+                    &lt;
+                </a>
+            </li>
+            {% endif %}
+            {% for pg in autores.paginator.page_range %}
+            <li class="page-item {% if autores.number == pg %}active{% endif %}">
+                <a class="page-link" href="?pg={{pg}}">{{pg}}</a>
+            </li>
+            {% endfor %}
+            {% if autores.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?pg={{ autores.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?pg={{ autores.paginator.num_pages }}">
+                    &raquo;
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
 </section>
 {%endblock%}
