@@ -20,10 +20,21 @@ except Exception as ex:
 
 
 def index(request):
+    ord = request.GET.get('ord')
     autores = Autor.objects.order_by('nome').filter(
         livro__disponivel=True).distinct('nome')
-    lista_ordenada = sorted(autores, key=operator.methodcaller(
-        'count_livros'))
+    if ord and ord == '2':
+        lista_ordenada = sorted(
+            autores, key=operator.attrgetter('nome'), reverse=True)
+    elif ord and ord == '3':
+        lista_ordenada = sorted(
+            autores, key=operator.methodcaller('count_livros'), reverse=True)
+    elif ord and ord == '4':
+        lista_ordenada = sorted(
+            autores, key=operator.methodcaller('count_livros'))
+    else:
+        lista_ordenada = sorted(autores, key=operator.attrgetter('nome'))
+
     lista_autores = []
     for autor in lista_ordenada:  # autores:
         dic_autor = {'autor': autor}
@@ -35,7 +46,7 @@ def index(request):
         else:
             dic_autor.update({'flag': ''})
         lista_autores.append(dic_autor)
-    paginator = Paginator(lista_autores, 12)
+    paginator = Paginator(lista_autores, 20)
     pg = request.GET.get('pg')
     autores = paginator.get_page(pg)
     return render(request, 'autores/index.html',

@@ -8,8 +8,13 @@ from django.contrib import messages
 
 
 def index(request):
-    livros = Livro.objects.order_by('titulo').filter(disponivel=True)
-    paginator = Paginator(livros, 12)
+    ord = request.GET.get('ord')
+    # TODO: Criar método de ordenação por quantidade de livros por autor
+    if ord and ord == '2':
+        livros = Livro.objects.order_by('-titulo').filter(disponivel=True)
+    else:
+        livros = Livro.objects.order_by('titulo').filter(disponivel=True)
+    paginator = Paginator(livros, 20)
     pg = request.GET.get('pg')
     livros = paginator.get_page(pg)
     return render(request, 'livros/index.html',

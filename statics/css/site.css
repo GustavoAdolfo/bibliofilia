@@ -110,8 +110,33 @@ body>#container>main {
   padding: 1%;
 }
 
-.pagination a.page-link {
-  background-color: #205020;
+section header#navegacao {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: stretch;
+}
+section header#navegacao h1 {
+  border: 1px solid orange;
+  height: 100%;
+  padding-top: auto;
+  padding-bottom: auto;
+  flex-basis: 20%;
+}
+section header#navegacao .filtros {
+  /* flex-grow: 2; */
+  border: 1px solid cyan;
+  height: 100%;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-column-gap: 16px;
+  column-gap: 16px;
+}
+section header#navegacao nav {
+  border: 1px solid maroon;
+  height: 100%;
 }
 
 /* ----------- iPhone 4 and 4S ----------- */
