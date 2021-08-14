@@ -8,10 +8,9 @@
                   Classificar
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="?ord=1">A - Z</a>
-                  <a class="dropdown-item" href="?ord=2">Z - A</a>
-                  <a class="dropdown-item" href="?ord=3">Mais livros por autor</a>
-                  <a class="dropdown-item" href="?ord=4">Menos livros por autor</a>
+                {% for classificacao in classificacoes %}
+                <a class="dropdown-item" href="?ord={{classificacao.id}}">{{classificacao.descricao}}</a>
+                {% endfor %}
             </div>
         </div>
         {% endif %}

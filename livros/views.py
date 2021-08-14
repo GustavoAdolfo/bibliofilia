@@ -9,16 +9,25 @@ from django.contrib import messages
 
 def index(request):
     ord = request.GET.get('ord')
-    # TODO: Criar método de ordenação por quantidade de livros por autor
     if ord and ord == '2':
         livros = Livro.objects.order_by('-titulo').filter(disponivel=True)
+    elif ord and ord == '3':
+        livros = Livro.objects.order_by('autor__nome').filter(disponivel=True)
+    elif ord and ord == '4':
+        livros = Livro.objects.order_by('-autor__nome').filter(disponivel=True)
     else:
         livros = Livro.objects.order_by('titulo').filter(disponivel=True)
     paginator = Paginator(livros, 20)
     pg = request.GET.get('pg')
     livros = paginator.get_page(pg)
+    classificacoes = [
+        {'id': '1', 'descricao': 'Título de A - Z'},
+        {'id': '2', 'descricao': 'Título de Z - A'},
+        {'id': '3', 'descricao': 'Autor de A - Z'},
+        {'id': '4', 'descricao': 'Autor de Z - A'}
+    ]
     return render(request, 'livros/index.html',
-                  {'livros': livros})
+                  {'livros': livros, 'classificacao': classificacoes})
 
 
 def livro(request, lvid):
