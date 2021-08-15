@@ -1,5 +1,5 @@
 <header id="navegacao">
-    <h1>{{titulo}}</h1>
+    <div id="titulo"><h1>{{titulo}}</h1></div>
     {% if filtros %}
     <div class="filtros">
         {% if classificacao %}
@@ -9,17 +9,21 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 {% for classificacao in classificacoes %}
+                {% if 'busca/' in request.path %}
+                <a class="dropdown-item" href="?ord={{classificacao.id}}&termo={{request.GET.termo}}">{{classificacao.descricao}}</a>
+                {% else %}
                 <a class="dropdown-item" href="?ord={{classificacao.id}}">{{classificacao.descricao}}</a>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
         {% endif %}
         <div class="busca">
-            <form action="{% url 'busca' %}" method="get">
+            <form action="{% if 'busca/' in request.path %}#{% else %}{{ url_busca }}{% endif %}" method="get">
                 <div class="form-group row">
                     <div class="col-12 input-group">
                         <input type="search" class="form-control" value=""
-                        id="search-book" placeholder="{{placehoder_busca}}"
+                        id="search-book" placeholder="{{placeholder}}"
                         name="termo"/>
                         <div class="input-group-append">
                             <span class="input-group-text" id="">Buscar</span>
@@ -36,12 +40,12 @@
             {% if navegador.has_previous %}
             <li class="page-item">
                 <a class="page-link" href="?pg=1" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                    <span aria-hidden="true"><i class="fas fa-step-backward"></i></span>
                 </a>
             </li>
             <li class="page-item">
                 <a class="page-link" href="?pg={{ navegador.previous_page_number }}">
-                    &lt;
+                    <i class="fas fa-backward"></i>
                 </a>
             </li>
             {% endif %}
@@ -53,12 +57,12 @@
             {% if navegador.has_next %}
             <li class="page-item">
                 <a class="page-link" href="?pg={{ navegador.next_page_number }}" aria-label="Next">
-                    <span aria-hidden="true">&gt;</span>
+                    <span aria-hidden="true"><i class="fas fa-forward"></i></span>
                 </a>
             </li>
             <li class="page-item">
                 <a class="page-link" href="?pg={{ navegador.paginator.num_pages }}">
-                    &raquo;
+                    <i class="fas fa-step-forward"></i>
                 </a>
             </li>
             {% endif %}

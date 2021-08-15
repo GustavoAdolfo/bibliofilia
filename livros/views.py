@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
 from django.contrib import messages
+import operator
 
 
 def index(request):
@@ -61,7 +62,8 @@ def busca(request):
                 request, messages.ERROR, 'Informe um valor para a busca.')
             return redirect('livros')
 
-        campos = Concat('titulo', Value(' '), 'subtitulo')
+        campos = Concat('titulo', Value(' '), 'subtitulo',
+                        Value(' '), 'autor__nome')
         livros = Livro.objects.annotate(
             titulo_subtitulo=campos
         ).filter(
@@ -74,9 +76,29 @@ def busca(request):
                 'Nenhum livro encontrado com o termo solicitado.')
             return redirect('livros')
 
-        paginator = Paginator(livros, 10)
+        ord = request.GET.get('ord')
+        if ord and ord == '2':
+            lista_ordenada = sorted(
+                livros, key=operator.attrgetter('titulo'), reverse=True)
+        elif ord and ord == '3':
+            lista_ordenada = sorted(
+                livros, key=operator.attrgetter('autor.nome'))
+        elif ord and ord == '4':
+            lista_ordenada = sorted(
+                livros, key=operator.attrgetter('autor.nome'), reverse=True)
+        else:
+            lista_ordenada = sorted(livros, key=operator.attrgetter('titulo'))
+
+        paginator = Paginator(lista_ordenada, 10)
         pg = request.GET.get('pg')
         livros = paginator.get_page(pg)
-        return render(request, 'livros/busca.html', {'livros': livros})
+        classificacoes = [
+            {'id': '1', 'descricao': 'Título de A - Z'},
+            {'id': '2', 'descricao': 'Título de Z - A'},
+            {'id': '3', 'descricao': 'Autor de A - Z'},
+            {'id': '4', 'descricao': 'Autor de Z - A'}
+        ]
+        return render(request, 'livros/busca.html',
+                      {'livros': livros, 'classificacao': classificacoes})
     except Livro.DoesNotExist:
         raise Http404()

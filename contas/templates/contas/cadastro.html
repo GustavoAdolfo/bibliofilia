@@ -3,16 +3,27 @@
 {%block 'titulo'%}Autores{%endblock%}
 
 {%block 'conteudo'%}
-<h1>Cadastre-se</h1>
-<div id="cadastro">
+<section id="cadastro">
+    <h1>Cadastre-se</h1>
+    <p>Os campos marcados com <span class="text-waring">*</span> são obrigatórios.</p>
     <form action="{% url 'registrar' %}" class="form" method="POST" id="frm-cadastro">
         {% csrf_token %}
-        <div class="text-field">Nome:
-            <input type="text" name="nome" id="tx-nome" value="{{ request.POST.nome }}">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="txt-nome" required>Nome</label>
+                    <input type="text" required class="form-control" name="nome" id="txt-nome" value="{{ request.POST.nome }}">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="txt-sobrenome" required>Sobrenome</label>
+                    <input type="text" class="form-control" required name="sobrenome" id="txt-sobrenome"
+                        value="{{ request.POST.sobrenome }}">
+                </div>
+            </div>
         </div>
-        <div class="text-field">Sobrenome:
-            <input type="text" name="sobrenome" id="tx-sobrenome" value="{{ request.POST.sobrenome }}">
-        </div>
+
         <div class="text-field">Email:
             <input type="email" name="email" id="tx-email" value="{{ request.POST.email }}">
         </div>
@@ -58,5 +69,5 @@
             <input type="submit" value="cadastrar">
         </div>
     </form>
-</div>
+</section>
 {%endblock%}
