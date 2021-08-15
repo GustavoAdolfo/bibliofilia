@@ -1,3 +1,4 @@
+from django.contrib.messages.constants import ERROR
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Perfil
 from django.contrib import messages, auth
@@ -106,7 +107,7 @@ def registrar(request):
         validate_email(email)
         if User.objects.filter(email=email).exists():
             campos_invalidos.append(
-                'O E-MAIL informado já está sendo utilizado!')
+                'O E-MAIL informado já está sendo utilizado! <a href="/contas/recuperar-senha">Recuperar senha</a>.')
     except:
         campos_invalidos.append('O campo E-MAIL está inválido!')
 
@@ -117,9 +118,11 @@ def registrar(request):
 
     if len(campos_invalidos):
         erros = 'Alugns campos precisam de revisão:'
-        messages.error(request, erros)
-        return render(request, 'contas/index.html',
-                      {'erros': campos_invalidos})
+        # messages.error(request, erros, extra_tags='safe')
+        for erro in campos_invalidos:
+            messages.add_message(request, ERROR, erro, extra_tags='safe')
+        # , {'erros': campos_invalidos})
+        return render(request, 'contas/cadastro.html')
 
     user = User.objects.create(
         username=email,

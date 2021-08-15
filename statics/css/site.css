@@ -18,7 +18,7 @@ body>#container {
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(80px, 90px) auto 1fr;
+  grid-template-rows: minmax(80px, 90px) auto 40px;
   grid-template-areas: "header" "main" "footer";
   grid-row-gap: 6px;
   row-gap: 6px;
@@ -159,19 +159,35 @@ section header#navegacao nav li > a {
   color: #fff;
 }
 
+#acesso {
+  padding: 20px;
+  width:80%;
+  margin:auto;
+}
+#acesso .chamada-cadastro {
+  margin: 40px auto 10px;
+  width: 80%;
+  text-align: right;
+}
+
 #cadastro {
   width: 90%;
   margin: auto;
-  border: 1px solid rgb(164, 204, 164);
-  padding: 12px;
+  padding: 20px;
 }
 
-input[required] {
-  border-bottom: 1px solid orangered;
+input:required {
+  outline: 1px solid orange;
 }
 label[required]::after {
   content: " *";
-  color: orangered;
+  color: orange;
+}
+input:invalid {
+  outline: 1px solid red;
+}
+input:focus:invalid {
+  color: red;
 }
 
 /* ----------- iPhone 4 and 4S ----------- */

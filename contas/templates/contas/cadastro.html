@@ -12,7 +12,8 @@
             <div class="col">
                 <div class="form-group">
                     <label for="txt-nome" required>Nome</label>
-                    <input type="text" required class="form-control" name="nome" id="txt-nome" value="{{ request.POST.nome }}">
+                    <input type="text" required class="form-control" name="nome" id="txt-nome"
+                        value="{{ request.POST.nome }}" autofocus>
                 </div>
             </div>
             <div class="col">
@@ -24,49 +25,119 @@
             </div>
         </div>
 
-        <div class="text-field">Email:
-            <input type="email" name="email" id="tx-email" value="{{ request.POST.email }}">
+        <div class="form-row">
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="txt-email" required>Email</label>
+                    <input type="email" required class="form-control" name="email" id="txt-email"
+                        value="{{ request.POST.email }}" placeholder="seu-endereco@email.com">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="txt-celular" required>Celular</label>
+                    <input type="text" required class="form-control" name="celular" id="txt-celular"
+                        value="{{ request.POST.celular }}" placeholder="(11) 91234-5678"
+                        pattern="\(?[0-9]{2}\)?\s?9[0-9]{4}-?[0-9]{4}">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="txt-senha" required>Senha</label>
+                    <input type="password" required class="form-control" name="senha" id="txt-senha">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="txt-confirma-senha" required>Confirmar Senha</label>
+                    <input type="password" class="form-control" required name="confirma-senha" id="txt-confirma-senha">
+                </div>
+            </div>
         </div>
-        <div class="text-field">Celular:
-            <input type="text" name="celular" id="tx-celular" value="{{ request.POST.celular }}">
+
+        <div class="form-row">
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="txt-cep" required>CEP</label>
+                    <input type="text" required class="form-control" placeholder="10101-010"
+                        pattern="[0-9]{5}-?[0-9]{3}" name="cep" id="txt-cep" value="{{ request.POST.cep }}">
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="txt-logradouro" required>Logradouro</label>
+                    <input type="text" required class="form-control" name="logradouro" id="txt-logradouro"
+                        value="{{ request.POST.logradouro }}">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="txt-numero" required>Número</label>
+                    <input type="text" class="form-control" required name="numero" id="txt-numero"
+                        value="{{ request.POST.numero }}">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="txt-complemento">Complemento</label>
+                    <input type="text" class="form-control" name="complemento" id="txt-complemento"
+                        value="{{ request.POST.complemento }}">
+                </div>
+            </div>
         </div>
-        <div class="text-field">CEP:
-            <input type="text" name="cep" id="tx-cep" value="{{ request.POST.cep }}">
+
+        <div class="form-row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="txt-bairro" required>Bairro</label>
+                    <input type="text" required name="bairro" id="txt-bairro" class="form-control"
+                        value="{{ request.POST.bairro }}">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="txt-cidade" required>Cidade</label>
+                    <input type="text" required name="cidade" id="txt-cidade" class="form-control"
+                        value="{{ request.POST.cidade }}">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="txt-extado" required>Estado</label>
+                    <input type="text" required required name="estado" id="txt-estado" class="form-control"
+                        value="{{ request.POST.estado }}">
+                </div>
+            </div>
         </div>
-        <div class="text-field">Logradouro:
-            <input type="text" name="logradouro" id="tx-logradouro" value="{{ request.POST.logradouro }}">
+
+        <div class="form-row">
+            <div class="col-12">
+                <input type="file" class="custom-file-input" name="foto-perfil" id="foto-perfil"
+                    value="{{ request.POST.foto }}">
+                <label for="foto-perfil" class="custom-file-label">Foto de Perfil</label>
+            </div>
         </div>
-        <div class="text-field">Número:
-            <input type="text" name="numero" id="tx-numero" value="{{ request.POST.numero }}">
+
+        <div class="form-row my-4">
+            <div class="col">
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="aceite-termos"
+                        id="ch-aceite-termos">
+                        <label class="form-check-label" for="ch-aceite-termos">
+                            Li e concordo com os <a href="javascript:alert('termos de uso')" class="">Termos de Uso</a> e
+                            com a <a href="" class="">Política de Privacidade</a>.
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="text-field">Complemento:
-            <input type="text" id="tx-complemento" name="complemento" value="{{ request.POST.complemento }}">
-        </div>
-        <div class="text-field">Bairro:
-            <input type="text" name="bairro" id="tx-bairro" value="{{ request.POST.bairro }}">
-        </div>
-        <div class="text-field">Cidade:
-            <input type="text" name="cidade" id="tx-cidade" value="{{ request.POST.cidade }}">
-        </div>
-        <div class="text-field">Estado:
-            <input type="text" name="estado" id="tx-estado" value="{{ request.POST.estado }}">
-        </div>
-        <div class="text-field">Foto de Perfil:
-            <input type="file" name="foto" id="foto-perfil" value="{{ request.POST.foto }}">
-        </div>
-        <div class="text-field">Senha:
-            <input type="password" name="senha" id="tx-senha">
-        </div>
-        <div class="text-field">Confirmação de Senha:
-            <input type="password" name="confirma-senha" id="tx-confirma-senha">
-        </div>
-        <div class="text-field">
-            <input type="checkbox" name="aceite-termos" id="ch-aceite-termos">
-            Li e concordo com os <a href="javascript:alert('termos de uso')" class="">Termos de Uso</a> e
-            com a <a href="" class="">Política de Privacidade</a>.
-        </div>
-        <div class="form-footer">
-            <input type="submit" value="cadastrar">
+
+
+        <div class="row">
+            <div class="col text-center">
+                <input type="submit" value="cadastrar" class="btn btn-lg btn-success">
+            </div>
         </div>
     </form>
 </section>

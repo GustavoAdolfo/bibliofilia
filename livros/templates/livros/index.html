@@ -49,10 +49,10 @@
             </thead>
             <tbody>
                 {% for livro in livros %}
-                <tr class="{% if livro.emprestado %}bg-dark{% endif %}">
+                <tr class="{% if livro.emprestado %}bg-secondary{% endif %}">
                     <td class="titulo">
                         <a href="{% url 'livro' livro.id %}"
-                            class="livro {% if livro.emprestado %}text-warning{% endif %}">
+                            class="livro {% if livro.emprestado %}text-light{% endif %}">
                             <span class="titulo">
                                 {{ livro.titulo }}</span>
                             <br />
@@ -60,14 +60,14 @@
                         </a>
                     </td>
                     <td> <a href="{% url 'autores'%}{{livro.autor_id}}"
-                            class="{% if livro.emprestado %}text-warning{% endif %}">{{ livro.autor }}</a></td>
-                    <td class="{% if livro.emprestado %}text-warning{% endif %}">{{ livro.idioma }}</td>
+                            class="{% if livro.emprestado %}text-light{% endif %}">{{ livro.autor }}</a></td>
+                    <td class="{% if livro.emprestado %}text-light{% endif %}">{{ livro.idioma }}</td>
                     <td class="text-center">
                         {% if not livro.emprestado %}
-                        <a href="#" class="text-success" title="Solicitar empréstimo">
+                        <a href="#" class="text-primary" title="Solicitar empréstimo">
                             <i class="fas fa-shopping-bag"></i></a>
                         {% else %}
-                        <a href="#" class="text-warning" title="Pedir para ser o próximo">
+                        <a href="#" class="text-light" title="Pedir para ser o próximo">
                             <i class="fas fa-hand-point-up"></i>
                         </a>
                         {% endif %}
