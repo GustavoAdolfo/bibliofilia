@@ -1,14 +1,14 @@
+"""Visualizações da biblioteca."""
 from django.shortcuts import render, redirect, get_object_or_404
 from biblioteca.models import Autor, Livro
 from django.core.paginator import Paginator
-from django.db.models import Q, Value
+from django.db.models import Value  # , Q
 from django.db.models.functions import Concat
 from django.contrib import messages
 import operator
 from django.http import Http404
 import json
 from django.contrib.staticfiles.storage import staticfiles_storage
-
 
 
 url = staticfiles_storage.path('data/countries.json')
@@ -18,11 +18,11 @@ try:
         content = ''.join(cdata.readlines())
         countries = json.loads(content)
         countries = list(filter(lambda x: 'pt-br' in x, countries))
-except Exception as ex:
+except Exception:
     pass
 
 
-
+# pylint: disable=maybe-no-member
 def index(request):
     """Define a página inicial da Minhoteca."""
     num_autores = Autor.objects.all().filter(
@@ -81,7 +81,8 @@ def livros_autor(request, autor_id):
         paginator = Paginator(livros, 10)
         pg = request.GET.get('pg')
         livros = paginator.get_page(pg)
-        return render(request, 'biblioteca/livros_autor.html', {'livros': livros})
+        return render(request,
+                      'biblioteca/livros_autor.html', {'livros': livros})
     except Livro.DoesNotExist:
         raise Http404()
 
@@ -137,13 +138,11 @@ def livros_busca(request):
         raise Http404()
 
 
-
-
 def autores(request):
     """Lista autores cadastrados."""
     ord = request.GET.get('ord')
-    autores = Autor.objects.order_by('nome').filter(
-        livro__disponivel=True).distinct('nome')
+    autores = Autor.objects.order_by(
+        'nome').filter(livro__disponivel=True).distinct('nome')
     if ord and ord == '2':
         lista_ordenada = sorted(
             autores, key=operator.attrgetter('nome'), reverse=True)
@@ -196,6 +195,7 @@ def autor(request, autor_id):
     return render(request, 'biblioteca/autor.html',
                   {'autor': dic_autor, 'livros': livros})
 
+
 def autores_busca(request):
     try:
         termo = request.GET.get('termo')
@@ -205,9 +205,9 @@ def autores_busca(request):
             return redirect('biblioteca:autores')
 
         campos = Concat('nome', Value(' '), 'pais_origem')
-        autores = Autor.objects.order_by('nome').distinct('nome').annotate(
-            autor_pais=campos
-        ).filter(
+        autores = Autor.objects.order_by(
+            'nome').distinct('nome').annotate(
+                autor_pais=campos).filter(
             autor_pais__icontains=termo,
             livro__disponivel=True
         )
@@ -233,15 +233,15 @@ def autores_busca(request):
 
         lista_autores = []
         for autor in lista_ordenada:  # autores:
-            dic_autor = {'autor': autor}
+            item = {'autor': autor}
             pais = next(filter(
                 lambda x: x['pt-br'] == autor.pais_origem, countries), None)
             if pais:
-                dic_autor.update(
-                    {'flag': 'data:image/png;base64, {0}'.format(pais['flag'])})
+                item.update(
+                    {'flag': f'data:image/png;base64, {pais["flag"]}'})
             else:
-                dic_autor.update({'flag': ''})
-            lista_autores.append(dic_autor)
+                item.update({'flag': ''})
+            lista_autores.append(item)
         paginator = Paginator(lista_autores, 20)
         pg = request.GET.get('pg')
         autores = paginator.get_page(pg)
