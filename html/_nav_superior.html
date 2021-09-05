@@ -19,7 +19,7 @@
         </div>
         {% endif %}
         <div class="busca">
-            <form action="{% if 'busca/' in request.path %}#{% else %}{{ url_busca }}{% endif %}" method="get">
+            <form action="{% if 'busca/' in request.path %}#{% else %}{{url_busca}}{% endif %}" method="get">
                 <div class="form-group row">
                     <div class="col-12 input-group">
                         <input type="search" class="form-control" value=""

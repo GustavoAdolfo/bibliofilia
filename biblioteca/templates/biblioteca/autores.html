@@ -1,0 +1,48 @@
+{%extends 'default.html'%}
+{% load static %}
+{%block 'titulo'%} - Autores{%endblock%}
+
+{%block 'conteudo'%}
+<section id="autores">
+    {% include "_nav_superior.html" with titulo="Autores" classificacao=True classificacoes=classificacao filtros=True paginacao=True placeholder="Pesquise por nome, sobrenome ou país" navegador=autores url_busca='/autores/busca' %}
+    <div class="listagem-autores">
+        {% for autor in autores %}
+        <div class="card autor">
+            <a href="{% url 'biblioteca:autor' autor.autor.id %}" class="card-link autor-link">
+                {% if autor.autor.imagem %}
+                <img src="{{ autor.autor.imagem }}" alt="{{ autor.autor.nome }}" class="autor-foto" />
+                {% else %}
+                <img src="{% static 'imgs/blank-profile-picture-973460.svg'%}" alt="{{ autor.autor.nome }}"
+                    class="autor-foto" />
+                {% endif %}
+            </a>
+            <div class="card-body">
+                <h6 class="card-title">
+                    <a href="{% url 'biblioteca:autor' autor.autor.id %}" class="card-link autor-link">
+                        {{autor.autor.nome}}
+                    </a>
+                    {% if autor.autor.url_wiki %}
+                    &nbsp;
+                    <small class="text-muted">
+                        <a href="{{ autor.autor.url_wiki }}" target="_blank" class="card-link autor-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </small>
+                    {% endif %}
+                </h6>
+                <p class="card-text">
+                    {% if autor.flag %}
+                    <img class="icone" src="{{autor.flag}}" alt="{{ autor.autor.pais_origem }}"
+                        title="{{ autor.autor.pais_origem }}" />
+                    {% else %}
+                    <span class="text-muted">{{ autor.autor.pais_origem }}</span>
+                    {% endif %}
+                    <span class="text-secondary"><i class="fas fa-book"></i> {{ autor.autor.count_livros }}</span>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% include '_nav_inferior.html' with navegador=autores %}
+</section>
+{%endblock%}
