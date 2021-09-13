@@ -1,0 +1,121 @@
+{%extends 'default.html'%}
+{% load static %}
+{%block 'titulo'%} - Perfil{%endblock%}
+
+{%block 'conteudo'%}
+<section id="perfil">
+    <h1>Gerenciamento de Perfil</h1>
+    <p>Os campos marcados com <span class="text-waring">*</span> são obrigatórios.</p>
+    <form action="{% url 'usuario:perfil' %}" class="form" method="POST" id="frm-perfil">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="txt-nome" required>Nome</label>
+                    <input type="text" required class="form-control" name="nome" id="txt-nome"
+                        value="{{ perfil.nome }}" autofocus>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="txt-sobrenome" required>Sobrenome</label>
+                    <input type="text" class="form-control" required name="sobrenome" id="txt-sobrenome"
+                        value="{{ perfil.sobrenome }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="txt-email" required>Email de Contato</label>
+                    <input type="email" required class="form-control" name="email" id="txt-email"
+                        value="{{ perfil.email }}" placeholder="seu-endereco@email.com">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="txt-celular" required>Celular</label>
+                    <input type="text" required class="form-control" name="celular" id="txt-celular"
+                        value="{{ perfil.celular }}" placeholder="(11) 91234-5678"
+                        pattern="\(?[0-9]{2}\)?\s?9[0-9]{4}-?[0-9]{4}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="txt-cep" required>CEP</label>
+                    <input type="text" required class="form-control" placeholder="10101-010"
+                        pattern="[0-9]{5}-?[0-9]{3}" name="cep" id="txt-cep" value="{{ perfil.cep }}">
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="txt-logradouro" required>Logradouro</label>
+                    <input type="text" required class="form-control" name="logradouro" id="txt-logradouro"
+                        value="{{ perfil.logradouro }}">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="txt-numero" required>Número</label>
+                    <input type="text" class="form-control" required name="numero" id="txt-numero"
+                        value="{{ perfil.numero }}">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="txt-complemento">Complemento</label>
+                    <input type="text" class="form-control" name="complemento" id="txt-complemento"
+                        value="{{ perfil.complemento }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="txt-bairro" required>Bairro</label>
+                    <input type="text" required name="bairro" id="txt-bairro" class="form-control"
+                        value="{{ perfil.bairro }}">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="txt-cidade" required>Cidade</label>
+                    <input type="text" required name="cidade" id="txt-cidade" class="form-control"
+                        value="{{ perfil.cidade }}">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="txt-extado" required>Estado</label>
+                    <input type="text" required required name="estado" id="txt-estado" class="form-control"
+                        value="{{ perfil.estado }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-12">
+                {% if perfil.url_foto %}
+                <p>
+                <img src="{{perfil.url_foto.url}}" alt="Sem Foto" title="Foto de perfil">
+                </p>
+                {% endif %}
+                <input type="file" class="custom-file-input" name="foto-perfil" id="foto-perfil"
+                    value="{{ perfil.foto }}">
+                <label for="foto-perfil" class="custom-file-label">Foto de Perfil</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <input type="submit" value="Salvar" class="btn btn-lg btn-success">
+            </div>
+        </div>
+    </form>
+</section>
+{%endblock%}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from biblioteca.models import Editora, Autor, Livro
+from .models import Editora, Autor, Livro
 
 
 class EditoraAdmin(admin.ModelAdmin):
@@ -10,6 +10,7 @@ class EditoraAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Editora, EditoraAdmin)
+
 
 class AutorAdmin(admin.ModelAdmin):
     list_display = ('id', 'nome', 'pais_origem', 'url_wiki')

@@ -21,14 +21,6 @@
                     <a href="{% url 'biblioteca:autor' autor.autor.id %}" class="card-link autor-link">
                         {{autor.autor.nome}}
                     </a>
-                    {% if autor.autor.url_wiki %}
-                    &nbsp;
-                    <small class="text-muted">
-                        <a href="{{ autor.autor.url_wiki }}" target="_blank" class="card-link autor-link">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </small>
-                    {% endif %}
                 </h6>
                 <p class="card-text">
                     {% if autor.flag %}
@@ -38,6 +30,14 @@
                     <span class="text-muted">{{ autor.autor.pais_origem }}</span>
                     {% endif %}
                     <span class="text-secondary"><i class="fas fa-book"></i> {{ autor.autor.count_livros }}</span>
+                    {% if autor.autor.url_wiki %}
+                    &nbsp;
+                    <span class="text-muted">
+                        <a href="{{ autor.autor.url_wiki }}" target="_blank" class="card-link autor-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </span>
+                    {% endif %}
                 </p>
             </div>
         </div>

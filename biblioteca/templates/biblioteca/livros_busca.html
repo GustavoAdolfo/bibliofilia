@@ -59,16 +59,16 @@
                             <span class="subtitulo">{{ livro.subtitulo }}</span>
                         </a>
                     </td>
-                    <td> <a href="{% url 'biblioteca:autor'%}{{livro.autor_id}}"
+                    <td> <a href="{% url 'biblioteca:autor'  livro.autor_id %}"
                             class="{% if livro.emprestado %}text-muted{% endif %}">{{ livro.autor }}</a></td>
                     <td class="{% if livro.emprestado %}text-muted{% endif %}">{{ livro.idioma }}</td>
                     <td class="text-center">
                         {% if not livro.emprestado %}
                         <a href="#" class="text-success" title="Solicitar empréstimo">
-                            <i class="fas fa-shopping-bag"></i></a>
+                            <i class="fas fa-book"></i></a>
                         {% else %}
                         <a href="#" class="text-warning" title="Pedir para ser o próximo">
-                            <i class="fas fa-hand-point-up"></i>
+                            <i class="fas fa-users"></i>
                         </a>
                         {% endif %}
                     </td>

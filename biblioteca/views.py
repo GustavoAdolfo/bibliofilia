@@ -11,7 +11,7 @@ import json
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 
-url = staticfiles_storage.path('data/countries.json')
+url = staticfiles_storage.path('countries.json')
 countries = []
 try:
     with open(url, "r") as cdata:

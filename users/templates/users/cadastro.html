@@ -1,0 +1,32 @@
+{%extends 'default.html'%}
+{% load static %}
+{%block 'conteudo'%}
+
+<form action="{% url 'usuario:cadastro' %}" class="form" id="frm-cadastro" method="post">
+    <div class="card">
+        <div class="card-body">
+            {% csrf_token %}
+            {{form.as_p}}
+            <div class="form-row my-4">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="aceite_termos"
+                            id="ch-aceite-termos">
+                            <label class="form-check-label" for="ch-aceite-termos">
+                                Li e concordo com os <a href="javascript:alert('termos de uso')" class="">Termos de Uso</a> e
+                                com a <a href="" class="">Política de Privacidade</a>.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-right">
+            <input type="hidden" name="next" value="{% url 'biblioteca:index' %}"/>
+            <input type="submit" value="Criar Conta" class="btn btn-success btn-lg">
+        </div>
+    </div>
+</form>
+
+{%endblock%}

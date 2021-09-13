@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -8,11 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minhoteca{%block 'titulo'%}{%endblock%}</title>
     <link rel="icon" href="{% static 'favicon.ico' %}">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="{% static 'fontawesome/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel='stylesheet' type='text/css' />
     <link href="{% static 'css/site.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'css/landing.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'css/livros.css' %}" rel="stylesheet" type="text/css" />

@@ -11,17 +11,21 @@
         <div class="collapse navbar-collapse" id="navbarNav" style="z-index: 1000;">
           <ul class="navbar-nav">
             <li class="nav-item {% if 'livros' in request.path %}active{% endif %}">
-              <a class="nav-link" href="{% url 'biblioteca:livros' %}">Livros <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'biblioteca:livros' %}">Livros</a>
             </li>
             <li class="nav-item {% if 'autores' in request.path %}active{% endif %}"><a class="nav-link" 
               href="{% url 'biblioteca:autores' %}">Autores</a></li>
-            {% if not user.is_authenticated %}
-            <!-- <li class="nav-item {% if 'contas' in request.path %}active{% endif %}">
-              <a class="nav-link" href="{ % url 'contas' % }">Entre ou Cadastre-se</a></li> -->
+            {% if user.is_authenticated %}
+            <!-- <li class="nav-item {% if 'emprestimos' in request.path %}active{% endif %}">
+              <a class="nav-link" href="#">Seus Empréstimos</a></li> -->
+            <li class="nav-item"><a class="nav-link" href="{% url 'usuario:logout' %}">Sair</a></li>
             {% else %}
-              <!-- <li class="nav-item {% if 'emprestimos' in request.path %}active{% endif %}">
-                <a class="nav-link" href="#">Seus Empréstimos</a></li>
-              <li class="nav-item"><a class="nav-link" href="{ % url 'logout' % }">Sair</a></li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'usuario:login' %}">Entrar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'usuario:cadastro' %}">Cadastrar</a>
+            </li>
             {% endif %}
             {% if user.is_authenticated %}
             <!-- <li class="nav-item {% if 'perfil' in request.path %}active{% endif %}" id="link-perfil">
@@ -29,15 +33,24 @@
             </li> -->
             {% endif %}
           </ul>
+          
           {% if user.is_authenticated %}
-            <!-- <div id="usermenu" class="">
-                <a href="{ % url 'perfil' user.id % }">
-                    {% if user.perfil.url_foto %}
-                    <img src="{{ user.perfil.url_foto.url }}" alt="{{ user.first_name }}"
-                    title="{{ user.first_name }}">
-                    {% endif %}
+            <div id="usermenu" class="">
+              <p>
+                <a class="nav-link" href="{% url 'usuario:perfil' %}">
+                  {% if user.perfil and user.perfil.url_foto %}
+                    <img src="{{ user.perfil.url_foto.url }}" 
+                      alt="{{ user.perfil }}"
+                      title="{{ user.perfil }}"/>
+                  {% else %}
+                    {{user}}
+                  {% endif %}
                 </a>
-            </div> -->
+              </p>
+              
+            </div>
+          {% else %}
+            
           {% endif %}
         </div>
       </nav>
