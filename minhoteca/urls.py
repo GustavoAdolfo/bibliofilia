@@ -23,6 +23,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'', include('biblioteca.urls', namespace='biblioteca')),
-    url(r'^usuario/', include('users.urls', namespace='usuario'))
-    # url(r'^emprestimo/', include('emprestimos.urls', namespace='emprestimo'))
+    url(r'^usuario/', include('users.urls', namespace='usuario')),
+    url(r'^emprestimo/', include('emprestimos.urls', namespace='emprestimo'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     # Minhoteca
     'users',
     'biblioteca',
-    # 'emprestimos'
+    'emprestimos'
 ]
 
 MIDDLEWARE = [
