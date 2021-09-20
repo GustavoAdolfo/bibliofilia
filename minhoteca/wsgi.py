@@ -1,16 +1,3 @@
-"""
-WSGI config for minhoteca project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
-"""
-
-import os
-
-from django.core.wsgi import get_wsgi_application
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'minhoteca.settings')
-
-application = get_wsgi_application()
+version https://git-lfs.github.com/spec/v1
+oid sha256:85ed4fb1d876a747963c39df0940b213121ddc09192ac013e68f90871b59daa2
+size 395

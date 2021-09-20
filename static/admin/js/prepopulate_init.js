@@ -1,11 +1,3 @@
-'use strict';
-{
-    const $ = django.jQuery;
-    const fields = $('#django-admin-prepopulated-fields-constants').data('prepopulatedFields');
-    $.each(fields, function(index, field) {
-        $('.empty-form .form-row .field-' + field.name + ', .empty-form.form-row .field-' + field.name).addClass('prepopulated_field');
-        $(field.id).data('dependency_list', field.dependency_list).prepopulate(
-            field.dependency_ids, field.maxLength, field.allowUnicode
-        );
-    });
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:25d85840b9a1789536c0adf101e9720cde5555eb035d3f5753fc704672a194a0
+size 492

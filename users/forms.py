@@ -1,19 +1,3 @@
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-# from django.contrib.auth.models import User
-from .models import CustomUser
-
-
-class UserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True, label='Email')
-
-    class Meta:
-        model = CustomUser
-        fields = ("email", "password1", "password2", "aceite_termos")
-
-    def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
-        user.email = self.cleaned_data["email"]
-        if commit:
-            user.save()
-        return user
+version https://git-lfs.github.com/spec/v1
+oid sha256:214325130c0dca834501e10cd5776aedd7ea09d7d970d5b29c4ed12aafd34319
+size 583

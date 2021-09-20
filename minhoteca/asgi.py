@@ -1,16 +1,3 @@
-"""
-ASGI config for minhoteca project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
-"""
-
-import os
-
-from django.core.asgi import get_asgi_application
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'minhoteca.settings')
-
-application = get_asgi_application()
+version https://git-lfs.github.com/spec/v1
+oid sha256:437b89628651f07867d62af580355cce93cf4d64864dae87143df0802cf744cd
+size 395

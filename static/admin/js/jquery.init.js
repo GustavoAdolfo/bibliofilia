@@ -1,8 +1,3 @@
-/*global jQuery:false*/
-'use strict';
-/* Puts the included jQuery into our own namespace using noConflict and passing
- * it 'true'. This ensures that the included jQuery doesn't pollute the global
- * namespace (i.e. this preserves pre-existing values for both window.$ and
- * window.jQuery).
- */
-window.django = {jQuery: jQuery.noConflict(true)};
+version https://git-lfs.github.com/spec/v1
+oid sha256:b8cfca7fb10e04c8a97029ae4076f2b9b424c9c95e4960c24bcf9cdd67af156d
+size 347

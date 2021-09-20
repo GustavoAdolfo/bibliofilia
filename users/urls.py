@@ -1,15 +1,3 @@
-"""Define os padrões de url para usuarios."""
-from django.conf.urls import url
-from django.contrib.auth.views import LoginView
-from . import views
-
-app_name = 'usuario'
-
-urlpatterns = [
-    # Página de login
-    url(r'^login/$', LoginView.as_view(),
-        {'template_name': 'users/login.html'}, name='login'),
-    url(r'^logout/$', views.logout_view, name='logout'),
-    url(r'^cadastro/$', views.cadastro, name='cadastro'),
-    url(r'^perfil/$', views.perfil, name='perfil')
-]
+version https://git-lfs.github.com/spec/v1
+oid sha256:5190efb1cf54c36c95b38dcb0234ca3adaf598827389d0cbbcc88ed4d9918b18
+size 482
