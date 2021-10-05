@@ -1,0 +1,34 @@
+{%extends 'default.html'%}
+{% load static %}
+{%block 'conteudo'%}
+<section id="agendamento">
+    <div class="painel">
+        <header>
+            <h1>Agendar Devolução</h1>
+        </header>
+        <div>
+            <div class="card">
+                <form action="{% url 'emprestimos:agendar' form.data.emprestimo_id %}" method="post">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                    </div>
+                    <div class="card-footer text-right">
+                        <input type="hidden" name="next" value="{% url 'emprestimos:index' %}"/>
+                        <input type="submit" value="Agendar" class="btn btn-success btn-lg">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <aside class="anuncios-laterais">
+    
+    </aside>
+</section>
+<script>
+    dt_agendamento = document.getElementById('id_data_agendamento')
+    dt_agendamento.setAttribute('type', 'date')
+    dt_agendamento.value = (new Date()).toISOString().split('T')[0]
+</script>
+{%endblock%}
+
