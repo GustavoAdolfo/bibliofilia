@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:48238f17c1af23f9aa2e9df0857cf4c491c8da2c0c866d1285f15b17033da3ab
-size 1147
+"""minhoteca URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path
+from django.conf.urls import include, url
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    url(r'', include('biblioteca.urls', namespace='biblioteca')),
+    url(r'^usuario/', include('users.urls', namespace='usuario')),
+    url(r'^emprestimos/', include('emprestimos.urls', namespace='emprestimos')),
+    url(r'^captcha/', include('captcha.urls'))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

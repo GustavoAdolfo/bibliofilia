@@ -1,57 +1,64 @@
 {% load static %}
 <header id="header-principal">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="{% url 'biblioteca:index' %}">
-          <img src="{% static 'imgs/minhoteca_120.png'%}" alt="Logo" class="img-logo" title="Minhoteca" />
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav" style="z-index: 1000;">
-          <ul class="navbar-nav">
-            <li class="nav-item {% if 'livros' in request.path %}active{% endif %}">
-              <a class="nav-link" href="{% url 'biblioteca:livros' %}">Livros</a>
-            </li>
-            <li class="nav-item {% if 'autores' in request.path %}active{% endif %}"><a class="nav-link" 
-              href="{% url 'biblioteca:autores' %}">Autores</a></li>
-            {% if user.is_authenticated %}
-            <li class="nav-item {% if 'emprestimos' in request.path %}active{% endif %}">
-              <a class="nav-link" href="{% url 'emprestimos:index' %}">Empréstimos</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'usuario:logout' %}">Sair</a></li>
+  <nav class="navbar navbar-expand-lg navbar-dark"><!-- bg-secondary-->
+    <a class="navbar-brand" href="{% url 'biblioteca:index' %}">
+      <img src="{% static 'imgs/minhoteca_120.png'%}" alt="Logo" class="img-logo" title="Minhoteca" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/"><i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item {% if 'livros' in request.path %}active{% endif %}">
+          <a class="nav-link" href="{% url 'biblioteca:livros' %}">Livros <span class="sr-only">(current)</spa></a>
+        </li>
+        <li class="nav-item {% if 'autores' in request.path %}active{% endif %}"><a class="nav-link" 
+          href="{% url 'biblioteca:autores' %}">Autores</a></li>
+        {% if user.is_authenticated %}
+        <li class="nav-item {% if 'emprestimos' in request.path %}active{% endif %}">
+          <a class="nav-link" href="{% url 'emprestimos:index' %}">Empréstimos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'usuario:logout' %}">Sair</a></li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'usuario:login' %}">Entrar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'usuario:cadastro' %}">Cadastrar</a>
+        </li>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <!-- <li class="nav-item {% if 'perfil' in request.path %}active{% endif %}" id="link-perfil">
+          <a class="nav-link" href="{ % url 'perfil' user.id % }">Perfil</a>
+        </li> -->
+        {% endif %}
+      </ul>
+      {% if user.is_authenticated %}
+      <div id="usermenu" class="">
+        <p>
+          <a class="nav-link" href="{% url 'usuario:perfil' %}">
+            {% if user.perfil and user.perfil.url_foto %}
+              <img src="{{ user.perfil.url_foto.url }}" 
+                alt="{{ user.perfil }}"
+                title="{{ user.perfil }}"/>
             {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'usuario:login' %}">Entrar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'usuario:cadastro' %}">Cadastrar</a>
-            </li>
+              {{user}}
             {% endif %}
-            {% if user.is_authenticated %}
-            <!-- <li class="nav-item {% if 'perfil' in request.path %}active{% endif %}" id="link-perfil">
-              <a class="nav-link" href="{ % url 'perfil' user.id % }">Perfil</a>
-            </li> -->
-            {% endif %}
-          </ul>
-          
-          {% if user.is_authenticated %}
-            <div id="usermenu" class="">
-              <p>
-                <a class="nav-link" href="{% url 'usuario:perfil' %}">
-                  {% if user.perfil and user.perfil.url_foto %}
-                    <img src="{{ user.perfil.url_foto.url }}" 
-                      alt="{{ user.perfil }}"
-                      title="{{ user.perfil }}"/>
-                  {% else %}
-                    {{user}}
-                  {% endif %}
-                </a>
-              </p>
-              
-            </div>
-          {% else %}
-            
-          {% endif %}
-        </div>
-      </nav>
+          </a>
+        </p>
+        
+      </div>
+      {% else %}
+        
+      {% endif %}
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Encontre um livro" aria-label="Busca" name="termo">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" formaction="{% url 'biblioteca:livros_busca' %}"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </nav>
 </header>

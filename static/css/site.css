@@ -1,3 +1,39 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:cf3b6db1f5c012749d2cd48cac33f76afc9b776912def49548dd2738e9cbcfc8
-size 5214
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+* {
+  box-sizing: border-box;
+}
+
+body {
+    background-color: #f7f4f4;
+    font-size: 1.1em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;;
+  }
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Baloo Tammudu 2', cursive;
+  }
+
+header .navbar .navbar-brand img {
+    width: 60px;
+    height: auto;
+}
+
+header .navbar {
+  background-color: #205020;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+#footer-principal {
+    height: 60px;
+}
+
+#footer-principal .navbar {
+    background-color: #205020;
+    font-size: .75em;
+}
+
+#footer-principal .navbar  a:link, #footer-principal .navbar  a:visited, #footer-principal .navbar  a:active  { 
+    color: #fff;
+}

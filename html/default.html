@@ -10,20 +10,23 @@
     <title>Minhoteca{%block 'titulo'%}{%endblock%}</title>
     <link rel="icon" href="{% static 'favicon.ico' %}">
     {% bootstrap_css %}
-    {% bootstrap_javascript %}
+    {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_messages %}
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="{% static 'fontawesome/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/site.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'css/landing.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'css/livros.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'css/autores.css' %}" rel="stylesheet" type="text/css" />
+   <!--  <link href="{#% static 'css/landing.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{#% static 'css/livros.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{#% static 'css/autores.css' %}" rel="stylesheet" type="text/css" /> -->
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
+    
+    {% include '_head.html' %}
+
     <div id="container">
-        {% include '_head.html' %}
 
         <main>
             {% if messages %}
@@ -40,9 +43,10 @@
             {%block 'conteudo'%}
             {%endblock%}
         </main>
-
-        {% include '_footer.html' %}
     </div>
+
+    {% include '_footer.html' %}
+
     <script type="text/javascript" src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'fontawesome/js/all.min.js' %}"></script>
