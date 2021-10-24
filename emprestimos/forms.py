@@ -28,7 +28,7 @@ class EmprestimoForm(forms.Form):
         required=True, label='Previsão de Retirada 1',  # input_formats='%m/%d/%Y',
         help_text='No momento é possível escolher apenas sábados ou domingos')
     data_previsao_retirada_2 = forms.DateField(
-        required=True, label='Previsão de Retirada 1',  # input_formats='%m/%d/%Y',
+        required=True, label='Previsão de Retirada 2',  # input_formats='%m/%d/%Y',
         help_text='No momento é possível escolher apenas sábados ou domingos')
     observacoes = forms.CharField(
         max_length=500, label='Observações', strip=True, required=False)
@@ -36,6 +36,27 @@ class EmprestimoForm(forms.Form):
     data_solicitacao = forms.CharField(widget=forms.HiddenInput())
     data_prevista_devolucao_1 = forms.CharField(widget=forms.HiddenInput())
     data_prevista_devolucao_2 = forms.CharField(widget=forms.HiddenInput())
+    livro_id = forms.CharField(widget=forms.HiddenInput())
+    user_id = forms.CharField(widget=forms.HiddenInput())
+    titulo_livro_historico = forms.CharField(widget=forms.HiddenInput())
+    nome_usuario_historico = forms.CharField(widget=forms.HiddenInput())
+
+
+class ReservaForm(forms.Form):
+    data_previsao_emprestimo_1 = forms.DateField(
+        required=True,
+        disabled=True,
+        label='Previsão de Retirada 1',  # input_formats='%m/%d/%Y',
+        help_text='No momento é possível escolher apenas sábados ou domingos')
+    data_previsao_emprestimo_2 = forms.DateField(
+        required=True,
+        disabled=True,
+        label='Previsão de Retirada 2',  # input_formats='%m/%d/%Y',
+        help_text='No momento é possível escolher apenas sábados ou domingos')
+    observacoes = forms.CharField(
+        max_length=500, label='Observações', strip=True, required=False)
+
+    data_solicitacao = forms.CharField(widget=forms.HiddenInput())
     livro_id = forms.CharField(widget=forms.HiddenInput())
     user_id = forms.CharField(widget=forms.HiddenInput())
     titulo_livro_historico = forms.CharField(widget=forms.HiddenInput())

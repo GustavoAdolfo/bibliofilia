@@ -63,11 +63,19 @@ class Espera(models.Model):
     data_previsao_emprestimo_1 = models.DateField(blank=False)
     data_previsao_emprestimo_2 = models.DateField(blank=False)
     emprestimo_efetuado = models.BooleanField(default=False)
+    solicitacao_cancelada = models.BooleanField(default=False)
     observacoes = models.TextField(max_length=500)
 
     def __str__(self):
-        return self.livro.titulo + ' - Reservado em: ' + \
-            str(self.data_efetiva_emprestimo)
+        if isinstance(self.data_solicitacao, str):
+            return self.livro.titulo + ' - Reserva solicitada em: ' + \
+                datetime.fromisoformat(
+                    self.data_solicitacao).strftime('%d/%m/%Y')
+        elif isinstance(self.data_solicitacao, datetime):
+            return self.livro.titulo + ' - Reserva solicitada em: ' + \
+                self.data_solicitacao.strftime('%d/%m/%Y')
+        else:
+            return self.livro.titulo + ' - Solicitação realizada'
 
     class Meta:
         verbose_name_plural = 'esperas'

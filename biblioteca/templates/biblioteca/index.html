@@ -3,7 +3,7 @@
 {%block 'conteudo'%}
 <section id="landing">
     <header>
-        <h1>Há no momento {{num_livros}} livros disponíveis de {{num_autores}} autores diferentes.</h1>
+        <h1>Há no momento {{num_livros}} livros disponíveis de {{num_autores}} autores diferentes</h1>
     </header>
     <div class="apresentacao">
         <div class="chamada">
@@ -33,16 +33,17 @@
                         excepicionais) você possa ser localizado e o livro ser recuperado.</li>
                     <li class="list-group-item">Seus dados <em>NUNCA</em> serão compartilhados com ninguém ou com qualquer organização, empresa
                         ou instituição.</li>
-                    <li class="list-group-item">Você não precisa pagar por cadastro ou empréstimo, tudo é na base da confiança prévia mesmo.
+                    <li class="list-group-item">Você não precisa pagar por cadastro ou empréstimo.
                     </li>
                     <li class="list-group-item">Tudo o que você precisa é ser honesto, íntegro, responsável, comprometido... enfim, o básico da civilidade.
                     </li>
                 </ul>
             </div>
             <figure id="mapa-raio">
+                <a href="#" data-toggle="modal" data-target="#mapaModal">
                 <img src="{% static 'imgs/mapa.png' %}" alt="Mapa" title="Raio de 1km da estação de metrô Vila Matilde" class="img-thumbnail">
-                <figcaption>Entorno de 1km com base na estação de metrô Vila Matilde na zona leste de São Paulo
-                </figcaption>
+                </a>
+                <figcaption>Entorno de 1.5km do Central Plaza Shopping.</figcaption>
             </figure>
         </div>
     </div>
@@ -54,16 +55,20 @@
             <p>Disponibilize uma "minhoteca" no seu bairro, condomínio, empresa, ou qualquer área delimitada
                 por você.
             </p>
+            <hr/>
             <p>Se você entende um pouco que seja de desenvolvimento de software, o código fonte está disponível
                 livremente no <a href="https://github.com/GustavoAdolfo/minhoteca" target="_blank"
                     class="link-recados">GitHub do projeto</a>.
                 Não entende dessas coisas malucas mas gostaria de disponibilizar sua biblioteca?
                 É só ir na <a href="https://github.com/GustavoAdolfo/minhoteca/wiki" target="_blank"
                     class="link-recados"><em>wiki do projeto</em></a>,
-                ler a documentação e seguir os passos. Mas se mesmo assim ainda tiver dificuldade, pede ajuda por lá
-                mesmo e algum desenvolvedor ou usuário mais experiente vai te ajudar. <span class="aside-alerta">É importante ressaltar que a responsabilidade sobre isso é totalmente sua. Nenhum envolvido no <em>Projeto Minhoteca</em> presta serviços de suporte
-                técnico (embora um ou outro de sua confiança possa ajudar pelo meio citado acima). E lembre-se: a responsabilidade sobre os empréstimos
-                dos SEUS livros também é SUA.</span></p>
+                ler a documentação e seguir os passos.
+            </p>
+            <hr/>
+            <p>
+                <span class="aside-alerta">É importante ressaltar que a responsabilidade sobre isso é totalmente sua. 
+                    <strong>Nenhum envolvido no projeto <em>Minhoteca</em> presta serviços de suporte</strong>. <br/>
+                    Lembre-se: <strong>a responsabilidade sobre os empréstimos dos SEUS livros também é SUA</strong>.</span></p>
         </div>
         <div class="recados">
             <h5>
@@ -80,4 +85,24 @@
         </div>
     </aside>
 </section>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="mapaModal" tabindex="-1" aria-labelledby="mapaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <figure id="mapa-raio">
+                <img src="{% static 'imgs/mapa.png' %}" alt="Mapa" title="Raio de 1km da estação de metrô Vila Matilde" class="">
+                <figcaption>Entorno de 1.5km do Central Plaza Shopping.</figcaption>
+            </figure>
+        </div>
+      </div>
+    </div>
+  </div>
 {%endblock%}

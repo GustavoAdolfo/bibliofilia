@@ -1,3 +1,58 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c90c0120f99c32ecd6ca40cacc59c5397724cf3ca5836d7bcb9d04f8b2431895
-size 2264
+{%extends 'default.html'%}
+{% load static %}
+{%block 'titulo'%} - Autores{%endblock%}
+
+{%block 'conteudo'%}
+<section id="autores">
+    {% include "_nav_superior.html" with titulo="Autores" classificacao=True classificacoes=classificacao filtros=True paginacao=True placeholder="Pesquise por nome, sobrenome ou país" navegador=autores url_busca='/autores/busca' %}
+    <div class="listagem-autores">
+        {% for autor in autores %}
+        <div class="card autor">
+            <a href="{% url 'biblioteca:autor' autor.autor.id %}" class="card-link autor-link">
+                {% if autor.autor.imagem %}
+                <img src="{{ autor.autor.imagem }}" alt="{{ autor.autor.nome }}" class="autor-foto" />
+                {% else %}
+                <img src="{% static 'imgs/blank-profile-picture-973460.svg'%}" alt="{{ autor.autor.nome }}"
+                    class="autor-foto" />
+                {% endif %}
+            </a>
+            <div class="card-body">
+                <h6 class="card-title">
+                    <a href="{% url 'biblioteca:autor' autor.autor.id %}" class="card-link autor-link">
+                        {{autor.autor.nome}}
+                    </a>
+                </h6>
+                <div class="card-text">
+                    <dl class="row">
+                        <dt class="col-sm-9">País de Origem</dt>
+                        <dd class="col-sm-3">
+                            {% if autor.flag %}
+                            <img class="icone" src="{{autor.flag}}" alt="{{ autor.autor.pais_origem }}"
+                                title="{{ autor.autor.pais_origem }}" />
+                            {% else %}
+                            <span class="text-muted">{{ autor.autor.pais_origem }}</span>
+                            {% endif %}
+                        </dd>
+                        <dt class="col-sm-9">Livros disponíveis</dt>
+                        <dd class="col-sm-3">{{ autor.autor.count_livros }}</dd>
+                        {% if autor.autor.url_wiki %}
+                        <dt class="col-sm-9">
+                            Wikipédia
+                        </dt>
+                        <dd class="col-sm-3">
+                            <span class="text-muted">
+                                <a href="{{ autor.autor.url_wiki }}" target="_blank" class="card-link autor-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </span>
+                        </dd>
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% include '_nav_inferior.html' with navegador=autores %}
+</section>
+{%endblock%}

@@ -1,3 +1,72 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6544acf610af29323d97b43f6e255d168dfa6adb3e04a1a6f9384c854773f6df
-size 3147
+<header id="navegacao">
+    <div id="titulo"><h1>{{titulo}}</h1></div>
+    {% if filtros %}
+    <div class="filtros row">
+        {% if classificacao %}
+        <div class="dropdown col-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Classificar
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for classificacao in classificacoes %}
+                {% if 'busca/' in request.path %}
+                <a class="dropdown-item" href="?ord={{classificacao.id}}&termo={{request.GET.termo}}">{{classificacao.descricao}}</a>
+                {% else %}
+                <a class="dropdown-item" href="?ord={{classificacao.id}}">{{classificacao.descricao}}</a>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="busca col-10">
+            <form action="{% if 'busca/' in request.path %}#{% else %}{{url_busca}}{% endif %}" method="get">
+                <div class="form-group row">
+                    <div class="col-12 input-group">
+                        <input type="search" class="form-control" value=""
+                        id="search-book" placeholder="{{placeholder}}"
+                        name="termo"/>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="">Buscar</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+    {% if paginacao %}
+    <nav aria-label="Paginas Livros">
+        <ul class="pagination pagination-sm justify-content-end">
+            {% if navegador.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?pg=1" aria-label="Previous">
+                    <span aria-hidden="true"><i class="fas fa-step-backward"></i></span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?pg={{ navegador.previous_page_number }}">
+                    <i class="fas fa-backward"></i>
+                </a>
+            </li>
+            {% endif %}
+            {% for pg in navegador.paginator.page_range %}
+            <li class="page-item {% if navegador.number == pg %}active{% endif %}">
+                <a class="page-link" href="?pg={{pg}}">{{pg}}</a>
+            </li>
+            {% endfor %}
+            {% if navegador.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?pg={{ navegador.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true"><i class="fas fa-forward"></i></span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?pg={{ navegador.paginator.num_pages }}">
+                    <i class="fas fa-step-forward"></i>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</header>

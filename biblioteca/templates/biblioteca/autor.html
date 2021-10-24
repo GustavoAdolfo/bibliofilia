@@ -1,3 +1,62 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d5cca4e6157fb440108cbd780e65d5c7ef9509cdbf1d1a96a659f89a753ea378
-size 1863
+{%extends 'default.html'%}
+{% load static %}
+{%block 'titulo'%} - {{ autor.autor }}{%endblock%}
+
+{%block 'conteudo'%}
+<section id="detalhe-autor" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <img src="{{ autor.autor.imagem }}" alt="{{ autor.autor.nome }}" class="autor-foto" />
+                <div class="card-body">
+                    <h2 class="card-title">{{autor.autor.nome}}</h2>
+                    <div class="card-text">
+                        <dl class="row">
+                            <dt class="col-sm-9">País de Origem</dt>
+                            <dd class="col-sm-3">
+                                {% if autor.flag %}
+                                <img class="icone" src="{{autor.flag}}" alt="{{ autor.autor.pais_origem }}"
+                                    title="{{ autor.autor.pais_origem }}" />
+                                {% else %}
+                                <span class="text-muted">{{ autor.autor.pais_origem }}</span>
+                                {% endif %}
+                            </dd>
+                            <dt class="col-sm-9">Livros disponíveis</dt>
+                            <dd class="col-sm-3">{{ autor.autor.count_livros }}</dd>
+                            {% if autor.autor.url_wiki %}
+                            <dt class="col-sm-9">
+                                Wikipédia
+                            </dt>
+                            <dd class="col-sm-3">
+                                <span class="text-muted">
+                                    <a href="{{ autor.autor.url_wiki }}" target="_blank" class="card-link autor-link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </span>
+                            </dd>
+                            {% endif %}
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {% if livros %}
+            <h3>Livros</h3>
+            <ul class="list-group list-group-flush">
+                {% for livro in livros %}
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'biblioteca:livro' livro.id %}" class="">
+                        {{livro.titulo}}<br />
+                        <small>
+                            {{ livro.subtitulo }}
+                        </small>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{%endblock%}

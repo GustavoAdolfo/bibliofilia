@@ -17,33 +17,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="{% static 'fontawesome/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/site.css' %}" rel="stylesheet" type="text/css" />
-   <!--  <link href="{#% static 'css/landing.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{#% static 'css/livros.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{#% static 'css/autores.css' %}" rel="stylesheet" type="text/css" /> -->
+    <link href="{% static 'css/landing.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/livros.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/autores.css' %}" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="d-flex flex-column min-vh-100">
     
     {% include '_head.html' %}
 
-    <div id="container">
-
-        <main>
-            {% if messages %}
-            {% for message in messages %}
-            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
-                <!-- {- { message } -} -->
-                {% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {% endfor %}
-            {% endif %}
-            {%block 'conteudo'%}
-            {%endblock%}
-        </main>
-    </div>
+    <main class="container-fluid">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+            <!-- {- { message } -} -->
+            {% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {%block 'conteudo'%}
+        {%endblock%}
+    </main>
 
     {% include '_footer.html' %}
 

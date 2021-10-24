@@ -37,3 +37,23 @@ header .navbar {
 #footer-principal .navbar  a:link, #footer-principal .navbar  a:visited, #footer-principal .navbar  a:active  { 
     color: #fff;
 }
+
+body main {
+  padding: 4px;
+}
+
+
+ul.pagination li {
+  border: none;
+}
+ul.pagination li a {
+  background-color: #205020;
+  color: #fff;
+  border: none;
+}
+
+ul.pagination li.active a{
+  background-color: #8a928a !important;
+  /* border: none; */
+  color: #205020;
+}

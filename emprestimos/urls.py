@@ -11,7 +11,7 @@ urlpatterns = [
     # Solicitar um empréstimo
     url(r'^novo/(?P<livro_id>\d+)$', views.solicitar, name='novo'),
     # Reservar (ser o próximo a pegar empréstimo)
-    url(r'^reservar/$', views.reservar, name='reservar'),
+    url(r'^reservar/(?P<livro_id>\d+)$', views.reservar, name='reservar'),
     # Filas em que o usuário está
     url(r'^espera/$', views.espera, name='espera'),
     # Cancelar solicitação de empréstimo

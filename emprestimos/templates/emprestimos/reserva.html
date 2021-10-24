@@ -1,0 +1,42 @@
+{%extends 'default.html'%}
+{% load static %}
+{%block 'conteudo'%}
+<section id="emprestimo">
+    <div class="painel">
+        <header>
+            <h1>Reservar Emprestimo</h1>
+        </header>
+        <div>
+            <div class="card">
+                <form action="{% url 'emprestimos:reservar' form.data.livro_id %}" method="post">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <p>{{form.data.nome_usuario_historico}}</p>
+                        <p>{{form.data.titulo_livro_historico}}</p>
+                        <p>{{form.data.data_solicitacao.date}}</p>
+                        <p>{{form.data.tamanho_fila}}</p>
+                        <details>
+                            <summary>Próximas Devoluções</summary>
+                            <ul>
+                                {% for item in form.data.devolucoes_previstas %}
+                                <li>{{item.data_prevista.date}}</li>
+                                {% endfor %}
+                            </ul>
+                        </details>
+                        {{form.as_p}}
+                    </div>
+                    <div class="card-footer text-right">
+                        <input type="hidden" name="next" value="{% url 'biblioteca:index' %}"/>
+                        <input type="button" value="Desistir" class="btn btn-danger" 
+                            onclick="javascript:window.location.replace('/livros');">
+                        <input type="submit" value="Aceitar" class="btn btn-success btn-lg">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <aside class="anuncios-laterais">
+
+    </aside>
+</section>
+{%endblock%}
