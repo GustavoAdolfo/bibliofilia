@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth import logout, login
 # from django.contrib.auth.forms import UserCreationForm
 # from .forms import UserCreationForm
-from users.forms import UserCreationForm
+from users.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from users.models import CustomUser, Perfil
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -126,3 +126,32 @@ def perfil(request):
                               url_foto=foto_perfil  # SUBIR O ARQUIVO PARA ALGUM LUGAR E ENTÃO PASSAR A URL
                               )
         return render(request, 'contas/index.html', {'novo_cadastro': True})
+
+
+@login_required(login_url='usuairo/login/')
+def editprofile(request):
+    if request.method == "POST":
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("Your Profile Updated"))
+            return redirect('crmapp')
+    else:
+        form = UserChangeForm(instance=request.user)
+    context = {'form': form}
+    return render(request, 'editprofile.html', context)
+
+
+@login_required(login_url='usuairo/login/')
+def changepassword(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your Password Changed",
+                             extra_tags='green')
+            return redirect('crmapp')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    context = {'form': form}
+    return render(request, 'changepassword.html', context)

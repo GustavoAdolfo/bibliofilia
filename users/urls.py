@@ -14,17 +14,23 @@ urlpatterns = [
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^cadastro/$', views.cadastro, name='cadastro'),
     url(r'^perfil/$', views.perfil, name='perfil'),
-    # url(r'^', include('django.contrib.auth.urls')),
+    url(r'^editprofile/$', views.editprofile, name='editprofile'),
+    url(r'^changepassword/$', views.changepassword, name='changepassword'),
+
     url(r'^password_reset/$',
         PasswordResetView.as_view(template_name='users/password_reset.html'),
         name='password_reset'),
-    url(r'^reset/(?P<uidb64>)/(?P<token>)/$',
-        PasswordResetConfirmView.as_view()),
+    url(r'^password-reset-confirm/(?P<uidb64>\.+)/(?P<token>\.+)/$',
+        PasswordResetConfirmView.as_view(
+            template_name='users/password_reset_confirm.html'),
+        name='password_reset_confirm'),
+
+    # url(r'^', include('django.contrib.auth.urls')),
+    # url(r'^reset/(?P<uidb64>)/(?P<token>)/$',
+    #     PasswordResetConfirmView.as_view()),
     # url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
     #     PasswordResetConfirmView.as_view()),
-    # path('password-reset-confirm/<uidb64>/<token>/',
-    # auth_views.PasswordResetConfirmView.as_view(template_name='users/pas sword_reset_confirm.html'),
-    #     name='password_reset_confirm'),
+
     url(r'^password_reset_done/$', PasswordResetDoneView.as_view()),
     url(r'^reset/done/$', PasswordResetCompleteView.as_view()),
 ]

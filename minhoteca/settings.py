@@ -155,8 +155,8 @@ STATIC_ROOT = os.path.join('static/data')
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = ''  # mail service smtp
-EMAIL_HOST_USER = ''  # email id
-EMAIL_HOST_PASSWORD = ''  # password
+EMAIL_HOST = 'smtp.gmail.co9m'  # mail service smtp
+EMAIL_HOST_USER = 'gustavo.adolfo.as@gmail.com'  # email id
+EMAIL_HOST_PASSWORD = 'H3i d3 V3nc3r!'  # password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
