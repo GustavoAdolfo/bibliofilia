@@ -23,18 +23,18 @@
             <div class="row">
                 <div class="form-group col">
                     <label for="username">E-mail</label>
-                    <input type="text" class="form-control" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+                    <input type="text" class="form-control" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col">
                     <label for="password">Senha</label>
-                    <input class="form-control" type="password" name="password" autocomplete="current-password" required="" id="id_password">
+                    <input class="form-control" type="password" name="password" autocomplete="current-password" required id="id_password">
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{% url 'usuario:password_reset' %}" id="">Redefinir senha.</a>
+                    <a href="{% url 'usuario:password_reset' %}" id="">Se esqueceu sua senha, clique aqui para redefinir.</a>
                 </div>
             </div>
         </div>
