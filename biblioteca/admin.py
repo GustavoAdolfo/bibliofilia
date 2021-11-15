@@ -1,3 +1,36 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:22f0f72082766fe79bd6cc0583813a52c002192680393932b5e209eb3869c0e3
-size 1010
+from django.contrib import admin
+from .models import Editora, Autor, Livro
+
+
+class EditoraAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nome', 'link')
+    list_display_links = ('id', 'nome')
+    list_per_page = 15
+    search_fields = ('nome',)
+
+
+admin.site.register(Editora, EditoraAdmin)
+
+
+class AutorAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nome', 'pais_origem', 'url_wiki')
+    list_filter = ('pais_origem',)
+    list_display_links = ('id', 'nome')
+    list_per_page = 15
+    search_fields = ('nome', 'pais_origem')
+
+
+admin.site.register(Autor, AutorAdmin)
+
+
+class LivroAdmin(admin.ModelAdmin):
+    list_display = ('id', 'titulo', 'subtitulo', 'idioma',
+                    'autor', 'editora', 'disponivel', 'emprestado')
+    list_filter = ('autor', 'editora', 'idioma')
+    list_display_links = ('id', 'titulo')
+    list_per_page = 20
+    search_fields = ('titulo', 'subtitulo', 'autor__nome', 'editora__nome')
+    list_editable = ('disponivel', 'emprestado')
+
+
+admin.site.register(Livro, LivroAdmin)

@@ -23,8 +23,6 @@
         <li class="nav-item {% if 'emprestimos' in request.path %}active{% endif %}">
           <a class="nav-link" href="{% url 'emprestimos:index' %}">Empréstimos</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'usuario:logout' %}">Sair</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'usuario:editprofile' %}">Edit Profile</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'usuario:changepassword' %}">Reset Password</a></li>
         {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'usuario:login' %}">Entrar</a>
@@ -33,12 +31,13 @@
           <a class="nav-link" href="{% url 'usuario:cadastro' %}">Cadastrar</a>
         </li>
         {% endif %}
-        {% if user.is_authenticated %}
-        <!-- <li class="nav-item {% if 'perfil' in request.path %}active{% endif %}" id="link-perfil">
-          <a class="nav-link" href="{ % url 'perfil' user.id % }">Perfil</a>
-        </li> -->
-        {% endif %}
       </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Encontre um livro" aria-label="Busca" name="termo">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" formaction="{% url 'biblioteca:livros_busca' %}"><i class="fas fa-search"></i></button>
+      </form>
+
       {% if user.is_authenticated %}
       <div id="usermenu" class="">
         <p>
@@ -47,20 +46,16 @@
               <img src="{{ user.perfil.url_foto.url }}" 
                 alt="{{ user.perfil }}"
                 title="{{ user.perfil }}"/>
-            {% else %}
+            {% elif user.firs_name %}
               {{user}}
+            {% else %}
+              Perfil
             {% endif %}
           </a>
         </p>
         
       </div>
-      {% else %}
-        
       {% endif %}
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Encontre um livro" aria-label="Busca" name="termo">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" formaction="{% url 'biblioteca:livros_busca' %}"><i class="fas fa-search"></i></button>
-      </form>
     </div>
   </nav>
 </header>

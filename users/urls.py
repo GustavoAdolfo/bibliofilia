@@ -47,5 +47,5 @@ urlpatterns = [
     path('reset', auth_views.PasswordChangeView.as_view(
         success_url=reverse_lazy('usuario:reset'),
         template_name='users/changepassword.html'
-    ), name='reset'),
+    ), name='changepassword'),
 ]
