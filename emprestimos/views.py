@@ -21,7 +21,7 @@ weekDays = ("Segunda-Feira", "Terça-Feira", "Quarta-Feira",
             "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo")
 
 
-@login_required(login_url='/usuario/login/')
+@login_required(login_url='/user/login/')
 def solicitar(request, livro_id):
     """Inicia uma nova solicitacao de empréstimo."""
     if request.method != 'POST':
@@ -90,7 +90,7 @@ def solicitar(request, livro_id):
     return render(request, 'emprestimos/novo.html/25', context)
 
 
-@login_required(login_url='/usuario/login/')
+@login_required(login_url='/user/login/')
 def index(request):
     user = auth.get_user(request)
     emprestimos = Emprestimo.objects.filter(
@@ -120,7 +120,7 @@ def calcular_maior_data_prevista_para_reserva(maior_data):
     return maior_data_prevista
 
 
-@login_required(login_url='/usuario/login/')
+@login_required(login_url='/user/login/')
 def reservar(request, livro_id: int):
     """Reserva posição na fila de empréstimos."""
     try:
@@ -210,12 +210,12 @@ def reservar(request, livro_id: int):
         return render(request, 'emprestimos/reserva.html', context)
 
 
-@login_required(login_url='/usuario/login/')
+@login_required(login_url='/user/login/')
 def espera(request):
     pass
 
 
-@login_required(login_url='/usuario/login/')
+@login_required(login_url='/user/login/')
 def cancelar(request, id: int):
     try:
         emprestimo = Emprestimo.objects.get(id=id)
@@ -244,7 +244,7 @@ def cancelar(request, id: int):
     return HttpResponseRedirect(reverse('emprestimos:index'))
 
 
-@login_required(login_url='/usuario/login/')
+@login_required(login_url='/user/login/')
 def agendar_devolucao(request, emprestimo_id):
     """Programa o agendamento da devolução."""
     if request.method != 'POST':

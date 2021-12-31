@@ -14,7 +14,7 @@
 {% endif %}
 
 <div class="row d-flex justify-content-center">
-<form action="{% url 'usuario:login' %}" class="form" id="frm-login" method="post">
+<form action="{% url 'user:login' %}" class="form" id="frm-login" method="post">
     <div class="card">
         <div class="card-body">
             {% csrf_token %}
@@ -34,7 +34,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{% url 'usuario:password_reset' %}" id="">Se esqueceu sua senha, clique aqui para redefinir.</a>
+                    <a href="{% url 'user:password_reset' %}" id="">Se esqueceu sua senha, clique aqui para redefinir.</a>
                 </div>
             </div>
         </div>

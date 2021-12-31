@@ -22,13 +22,13 @@
         {% if user.is_authenticated %}
         <li class="nav-item {% if 'emprestimos' in request.path %}active{% endif %}">
           <a class="nav-link" href="{% url 'emprestimos:index' %}">Empréstimos</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'usuario:logout' %}">Sair</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'user:logout' %}">Sair</a></li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'usuario:login' %}">Entrar</a>
+          <a class="nav-link" href="{% url 'user:login' %}">Entrar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'usuario:cadastro' %}">Cadastrar</a>
+          <a class="nav-link" href="{% url 'user:cadastro' %}">Cadastrar</a>
         </li>
         {% endif %}
       </ul>
@@ -41,7 +41,7 @@
       {% if user.is_authenticated %}
       <div id="usermenu" class="">
         <p>
-          <a class="nav-link" href="{% url 'usuario:perfil' %}">
+          <a class="nav-link" href="{% url 'user:perfil' %}">
             {% if user.perfil and user.perfil.url_foto %}
               <img src="{{ user.perfil.url_foto.url }}" 
                 alt="{{ user.perfil }}"

@@ -8,12 +8,12 @@
 
     <div class="row">
     <div class="col sm-12">
-    <p><a class="nav-link" href="{% url 'usuario:changepassword' %}"><i class="fas fa-key"></i> Redefinir Senha</a></p>
+    <p><a class="nav-link" href="{% url 'user:changepassword' %}"><i class="fas fa-key"></i> Redefinir Senha</a></p>
     </div>
     </div>
 
     <p>Os campos marcados com <span class="text-waring">*</span> são obrigatórios.</p>
-    <form action="{% url 'usuario:perfil' %}" class="form" method="POST" id="frm-perfil">
+    <form action="{% url 'user:perfil' %}" class="form" method="POST" id="frm-perfil">
         {% csrf_token %}
         <div class="row">
             <div class="col">

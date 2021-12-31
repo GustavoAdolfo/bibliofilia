@@ -1,9 +1,12 @@
+import base64
+import re
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import logout, login
-# from django.contrib.auth.forms import UserCreationForm
-# from .forms import UserCreationForm
+from django.contrib.auth.tokens import default_token_generator
 from users.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from users.models import CustomUser, Perfil
 from django.contrib.auth.decorators import login_required
@@ -11,6 +14,7 @@ from django.db import transaction
 from django.contrib.messages.constants import ERROR
 from django.contrib import messages, auth
 from django.core.validators import validate_email
+from django.contrib.auth.forms import SetPasswordForm
 
 
 def logout_view(request):
@@ -27,11 +31,6 @@ def cadastro(request):
         form = UserCreationForm(data=request.POST)
         if form.is_valid():
             new_user = form.save()
-            # Faz login e redireciona para a página inicial
-            # authenticated_user = authenticate(
-            #     user_name=new_user.username,
-            #     password=request.POST['password1'])
-            # login(request, authenticated_user)
             perfil = Perfil()
             perfil.email = new_user.email
             perfil.nome = new_user.first_name
@@ -46,12 +45,19 @@ def cadastro(request):
     return render(request, 'users/cadastro.html', context)
 
 
-@login_required(login_url='usuario/login/')
+@login_required(login_url='user/login/')
 @transaction.atomic
 def perfil(request):
     if request.method != 'POST':
         user = auth.get_user(request)
-        perfil = get_object_or_404(Perfil, user=user)
+        try:
+            perfil = get_object_or_404(Perfil, user_id=user.id)
+            # perfil = Perfil.objects.get(user_id=user.id)
+        except Exception as e:
+            print(e)
+            perfil = Perfil()
+            perfil.user = user
+
         return render(request, 'users/perfil.html', {'perfil': perfil})
     else:
         nome = request.POST.get("nome")
@@ -84,14 +90,14 @@ def perfil(request):
             campos_invalidos.append('O campo ESTADO está inválido!')
         if not celular or len(celular) < 11:
             campos_invalidos.append('O campo CELULAR está inválido!')
-        if not senha or len(senha) < 8:
-            campos_invalidos.append('O campo SENHA está inválido!')
-        if not confirmar_senha or len(confirmar_senha) < 8:
-            campos_invalidos.append(
-                'O campo CONFIRMAÇÃO DE SENHA está inválido!')
-        if confirmar_senha != senha:
-            campos_invalidos.append(
-                'A SENHA e a CONFIRMAÇÃO DE SENHA divergem!')
+        # if not senha or len(senha) < 8:
+        #     campos_invalidos.append('O campo SENHA está inválido!')
+        # if not confirmar_senha or len(confirmar_senha) < 8:
+        #     campos_invalidos.append(
+        #         'O campo CONFIRMAÇÃO DE SENHA está inválido!')
+        # if confirmar_senha != senha:
+        #     campos_invalidos.append(
+        #         'A SENHA e a CONFIRMAÇÃO DE SENHA divergem!')
         try:
             validate_email(email)
             if Perfil.objects.filter(email=email).exists():
@@ -101,10 +107,10 @@ def perfil(request):
         except Exception:
             campos_invalidos.append('O campo E-MAIL está inválido!')
 
-        if not aceite_termos:
-            campos_invalidos.append(
-                'Você precisa estar ciente e aceitar os termos de uso e'
-                ' a política de privacidade para prosseguir')
+        # if not aceite_termos:
+        #     campos_invalidos.append(
+        #         'Você precisa estar ciente e aceitar os termos de uso e'
+        #         ' a política de privacidade para prosseguir')
 
         if len(campos_invalidos):
             # erros = 'Alugns campos precisam de revisão:'
@@ -112,9 +118,10 @@ def perfil(request):
             for erro in campos_invalidos:
                 messages.add_message(request, ERROR, erro, extra_tags='safe')
             # , {'erros': campos_invalidos})
-            return render(request, reverse('usuario:perfil'))
+            return render(request, reverse('user:perfil'))
 
-        Perfil.objects.create(user=auth.get_user_model(),
+        user = auth.get_user(request)
+        Perfil.objects.create(user=user,
                               celular=celular,
                               cep=cep,
                               logradouro=logradouro,
@@ -125,10 +132,13 @@ def perfil(request):
                               estado=estado,
                               url_foto=foto_perfil  # SUBIR O ARQUIVO PARA ALGUM LUGAR E ENTÃO PASSAR A URL
                               )
-        return render(request, 'contas/index.html', {'novo_cadastro': True})
+        messages.add_message(request, messages.SUCCESS,
+                             'Perfil atualizado com sucesso!')
+        return HttpResponseRedirect(reverse('biblioteca:index'))
+        # return render(request, '', {'novo_cadastro': True})
 
 
-@login_required(login_url='usuairo/login/')
+@login_required(login_url='user/login/')
 def editprofile(request):
     if request.method == "POST":
         form = UserChangeForm(request.POST, instance=request.user)
@@ -142,7 +152,7 @@ def editprofile(request):
     return render(request, 'editprofile.html', context)
 
 
-@login_required(login_url='usuairo/login/')
+@login_required(login_url='user/login/')
 def changepassword(request):
     if request.method == "POST":
         form = PasswordChangeForm(data=request.POST, user=request.user)
@@ -155,3 +165,42 @@ def changepassword(request):
         form = PasswordChangeForm(user=request.user)
     context = {'form': form}
     return render(request, 'changepassword.html', context)
+
+
+def password_reset_confirm(request, uidb64=None, token=None,
+                           token_generator=default_token_generator):
+    """
+    View that checks the hash in a password reset link and presents a
+    form for entering a new password.
+    """
+    assert uidb64 is not None and token is not None  # checked by URLconf
+
+    try:
+        uidb64 += "=" * ((4 - len(uidb64) % 4) % 4)
+        uid_int = int(base64.b64decode(uidb64))
+        user = CustomUser.objects.get(id=uid_int)
+    except Exception as e:
+        print(e)
+        user = None
+
+    ctx = {}
+
+    if user is not None and token_generator.check_token(user, token):
+        ctx['validlink'] = True
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('user:password_reset_complete'))
+            else:
+                ctx['form'] = form
+                return render(request, 'users/password_reset_confirm.html', ctx)
+        else:
+            form = SetPasswordForm(user, request.GET)
+            ctx['form'] = form
+            return render(request, 'users/password_reset_confirm.html', ctx)
+    else:
+        ctx['validlink'] = False
+        messages.add_message(
+            request, messages.ERROR, 'Este link não é mais válido. Se deseja alterar sua senha, solicite novamente.')
+        return HttpResponseRedirect(reverse('user:password_reset'))

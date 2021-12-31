@@ -2,7 +2,7 @@
 {% load static %}
 {%block 'conteudo'%}
 
-<form action="{% url 'usuario:cadastro' %}" class="form" id="frm-cadastro" method="post">
+<form action="{% url 'user:cadastro' %}" class="form" id="frm-cadastro" method="post">
     <div class="card">
         <div class="card-body">
             {% csrf_token %}

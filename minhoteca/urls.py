@@ -18,24 +18,24 @@ from django.urls import path
 from django.conf.urls import include, url
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import LoginView, PasswordResetView, \
-    PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.views import PasswordResetConfirmView
+from users.views import password_reset_confirm
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'', include('biblioteca.urls', namespace='biblioteca')),
-    url(r'^usuario/', include('users.urls', namespace='usuario')),
+    url(r'^user/', include('users.urls', namespace='user')),
     url(r'^emprestimos/',
         include('emprestimos.urls', namespace='emprestimos')),
     url(r'^captcha/', include('captcha.urls')),
-    url('^', include('django.contrib.auth.urls'))
-    # url(r'^password_reset/$', PasswordResetView.as_view(),
-    #     name='password_reset'),
-    # url(r'^password_reset/done/$', PasswordResetDoneView.as_view(),
-    #     name='password_reset_done'),
-    # url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-    #     PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    # url(r'^reset/done/$', PasswordResetCompleteView.as_view(),
-    #     name='password_reset_complete'),
+    # url('^user/', include('django.contrib.auth.urls'))
+    # url('', include('django.contrib.auth.urls'))
+    # path('reset/<uidb64>/<token>/',
+    #      PasswordResetConfirmView.as_view(
+    #          template_name="users/password_reset_confirm.html"),
+    #      name='password_reset_confirm'),
+    path('reset/<uidb64>/<token>/',
+         password_reset_confirm,
+         name='password_reset_confirm'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
