@@ -1,8 +1,8 @@
 {% load static %}
 <header id="header-principal">
   <nav class="navbar navbar-expand-lg navbar-dark"><!-- bg-secondary-->
-    <a class="navbar-brand" href="{% url 'biblioteca:index' %}">
-      <img src="{% static 'imgs/minhoteca_120.png'%}" alt="Logo" class="img-logo" title="Minhoteca" />
+    <a class="navbar-brand" href="{% url 'biblioteca:index' %}" title="Início">
+      <img src="{% static 'imgs/minhoteca_120.png'%}" alt="Minhoteca" class="img-logo" title="Iníco" />
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,9 +11,6 @@
   
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/"><i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
-        </li>
         <li class="nav-item {% if 'livros' in request.path %}active{% endif %}">
           <a class="nav-link" href="{% url 'biblioteca:livros' %}">Livros <span class="sr-only">(current)</spa></a>
         </li>
@@ -23,15 +20,19 @@
         <li class="nav-item {% if 'emprestimos' in request.path %}active{% endif %}">
           <a class="nav-link" href="{% url 'emprestimos:index' %}">Empréstimos</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'user:logout' %}">Sair</a></li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'user:login' %}">Entrar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'user:cadastro' %}">Cadastrar</a>
-        </li>
         {% endif %}
       </ul>
+
+      {% if not user.is_authenticated %}
+      <ul class="navbar-nav mr-right">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user:login' %}">Já tem uma conta? Entre!</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user:cadastro' %}">Ou, cadastre-se agora.</a>
+        </li>
+      </ul>
+      {% endif %}
 
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Encontre um livro" aria-label="Busca" name="termo">
@@ -45,7 +46,9 @@
             {% if user.perfil and user.perfil.url_foto %}
               <img src="{{ user.perfil.url_foto.url }}" 
                 alt="{{ user.perfil }}"
-                title="{{ user.perfil }}"/>
+                title="{{ user.perfil }}"
+                id="profile_picture"
+                class="rounded-circle"/>
             {% elif user.firs_name %}
               {{user}}
             {% else %}

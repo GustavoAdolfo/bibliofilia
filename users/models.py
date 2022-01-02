@@ -53,7 +53,6 @@ class CustomUser(AbstractUser):
 
 class Perfil(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    email = models.EmailField(_('email de contato'), unique=True)
     nome = models.CharField(max_length=50, blank=False)
     sobrenome = models.CharField(max_length=50, blank=False)
     celular = models.PositiveBigIntegerField(null=True)

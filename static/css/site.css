@@ -25,6 +25,22 @@ header .navbar {
   margin-bottom: 20px;
 }
 
+#header-principal nav .nav-item .nav-link {
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+#header-principal nav .nav-item .nav-link:hover{
+  background-color: #102510;
+}
+
+#usermenu #profile_picture {
+  width: auto;
+  max-height: 50px;
+  margin-top: 10px;
+}
+
 #footer-principal {
     height: 60px;
 }
@@ -55,5 +71,9 @@ ul.pagination li a {
 ul.pagination li.active a{
   background-color: #8a928a !important;
   /* border: none; */
+  color: #205020;
+}
+
+section#perfil #link-redefinir-senha {
   color: #205020;
 }

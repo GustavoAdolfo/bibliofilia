@@ -3,120 +3,175 @@
 {%block 'titulo'%} - Perfil{%endblock%}
 
 {%block 'conteudo'%}
-<section id="perfil">
+<section id="perfil" class="container">
     <h1>Gerenciamento de Perfil</h1>
 
     <div class="row">
-    <div class="col sm-12">
-    <p><a class="nav-link" href="{% url 'user:changepassword' %}"><i class="fas fa-key"></i> Redefinir Senha</a></p>
-    </div>
-    </div>
-
-    <p>Os campos marcados com <span class="text-waring">*</span> são obrigatórios.</p>
-    <form action="{% url 'user:perfil' %}" class="form" method="POST" id="frm-perfil">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="txt-nome" required>Nome</label>
-                    <input type="text" required class="form-control" name="nome" id="txt-nome"
-                        value="{{ perfil.nome }}" autofocus>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="txt-sobrenome" required>Sobrenome</label>
-                    <input type="text" class="form-control" required name="sobrenome" id="txt-sobrenome"
-                        value="{{ perfil.sobrenome }}">
-                </div>
-            </div>
+        <div class="col sm-12 text-right">
+            <a id="link-redefinir-senha" class="nav-link" href="{% url 'user:changepassword' %}"><i class="fas fa-key"></i> Redefinir Senha</a>
         </div>
+    </div>
 
-        <div class="form-row">
+    <ul class="list-group my-4 list-group-flush">
+        <li class="list-group-item"><i class="fa fa-info-circle text-danger" aria-hidden="true"></i> Os campos marcados com <span class="text-waring">*</span> são obrigatórios.</li>
+        <li class="list-group-item"><i class="fas fa-exclamation-circle text-danger"></i> Informe o endereço próximo ao ponto central de entrega e devolução do livro no qual poderá ser contatado.</li>
+    </ul>
+
+    <div class="card">
+        <div class="card-body">
+
+    <form action="{% url 'user:perfil' %}" class="form" method="POST" id="frm-perfil" enctype="multipart/form-data" >
+        {% csrf_token %}
+
+        <input type="hidden" name="user_id" value="{{ user.id|default_if_none:"" }}" id="id_user_id">
+        <div class="row">
             <div class="col-5">
                 <div class="form-group">
-                    <label for="txt-email" required>Email de Contato</label>
-                    <input type="email" required class="form-control" name="email" id="txt-email"
-                        value="{{ perfil.email }}" placeholder="seu-endereco@email.com">
+                    <label for="id_nome" required>Nome</label>
+                    <input type="text" required class="form-control" name="nome" id="id_nome" minlength="3" maxlength="100"
+                        value="{{ form.nome.value|default_if_none:"" }}" autofocus>
                 </div>
+                {% if form.nome.errors %}
+                <div class="alert alert-danger">
+                    {{ form.nome.errors }}
+                </div>
+                {% endif %}
             </div>
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="id_sobrenome" required>Sobrenome</label>
+                    <input type="text" class="form-control" required name="sobrenome" id="id_sobrenome" minlength="2" maxlength="100"
+                        value="{{ form.sobrenome.value|default_if_none:""  }}">
+                </div>
+                {% if form.sobrenome.errors %}
+                <div class="alert alert-danger">
+                    {{ form.sobrenome.errors }}
+                </div>
+                {% endif %}
+            </div>
+
             <div class="col-2">
                 <div class="form-group">
-                    <label for="txt-celular" required>Celular</label>
-                    <input type="text" required class="form-control" name="celular" id="txt-celular"
-                        value="{{ perfil.celular }}" placeholder="(11) 91234-5678"
+                    <label for="id_celular" required>Celular</label>
+                    <input type="text" required class="form-control" name="celular" id="id_celular"
+                        value="{{ form.celular.value|default_if_none:"" }}" placeholder="(11) 91234-5678"
                         pattern="\(?[0-9]{2}\)?\s?9[0-9]{4}-?[0-9]{4}">
                 </div>
+                {% if form.celular.errors %}
+                <div class="alert alert-danger">
+                    {{ form.celular.errors }}
+                </div>
+                {% endif %}
             </div>
         </div>
 
         <div class="form-row">
             <div class="col-2">
                 <div class="form-group">
-                    <label for="txt-cep" required>CEP</label>
+                    <label for="id_cep" required>CEP</label>
                     <input type="text" required class="form-control" placeholder="10101-010"
-                        pattern="[0-9]{5}-?[0-9]{3}" name="cep" id="txt-cep" value="{{ perfil.cep }}">
+                        pattern="[0-9]{5}-?[0-9]{3}" name="cep" id="id_cep" value="{{ form.cep.value|default_if_none:""|stringformat:"08d" }}">
                 </div>
+                {% if form.cep.errors %}
+                <div class="alert alert-danger">
+                    {{ form.cep.errors }}
+                </div>
+                {% endif %}
             </div>
             <div class="col-5">
                 <div class="form-group">
-                    <label for="txt-logradouro" required>Logradouro</label>
-                    <input type="text" required class="form-control" name="logradouro" id="txt-logradouro"
-                        value="{{ perfil.logradouro }}">
+                    <label for="id_logradouro" required>Logradouro</label>
+                    <input type="text" required class="form-control" name="logradouro" id="id_logradouro"
+                        placeholder="Rua das Palmeiras" value="{{ form.logradouro.value|default_if_none:"" }}">
                 </div>
+                {% if form.logradouro.errors %}
+                <div class="alert alert-danger">
+                    {{ form.logradouro.errors }}
+                </div>
+                {% endif %}
             </div>
             <div class="col-2">
                 <div class="form-group">
-                    <label for="txt-numero" required>Número</label>
-                    <input type="text" class="form-control" required name="numero" id="txt-numero"
-                        value="{{ perfil.numero }}">
+                    <label for="id_numero" required>Número</label>
+                    <input type="text" class="form-control" required name="numero" id="id_numero"
+                        placeholder="123-A" value="{{ form.numero.value|default_if_none:"" }}">
                 </div>
+                {% if form.numero.errors %}
+                <div class="alert alert-danger">
+                    {{ form.numero.errors }}
+                </div>
+                {% endif %}
             </div>
             <div class="col-3">
                 <div class="form-group">
-                    <label for="txt-complemento">Complemento</label>
-                    <input type="text" class="form-control" name="complemento" id="txt-complemento"
-                        value="{{ perfil.complemento }}">
+                    <label for="id_complemento">Complemento</label>
+                    <input type="text" class="form-control" name="complemento" id="id_complemento"
+                        placeholder="2º andar" value="{{ form.complemento.value|default_if_none:"" }}">
                 </div>
+                {% if form.complemento.errors %}
+                <div class="alert alert-danger">
+                    {{ form.complemento.errors }}
+                </div>
+                {% endif %}
             </div>
         </div>
 
         <div class="form-row">
             <div class="col-4">
                 <div class="form-group">
-                    <label for="txt-bairro" required>Bairro</label>
-                    <input type="text" required name="bairro" id="txt-bairro" class="form-control"
-                        value="{{ perfil.bairro }}">
+                    <label for="id_bairro" required>Bairro</label>
+                    <input type="text" required name="bairro" id="id_bairro" class="form-control"
+                        placeholder="Jardins" value="{{ form.bairro.value|default_if_none:"" }}">
                 </div>
+                {% if form.bairro.errors %}
+                <div class="alert alert-danger">
+                    {{ form.bairro.errors }}
+                </div>
+                {% endif %}
             </div>
             <div class="col-4">
                 <div class="form-group">
-                    <label for="txt-cidade" required>Cidade</label>
-                    <input type="text" required name="cidade" id="txt-cidade" class="form-control"
-                        value="{{ perfil.cidade }}">
+                    <label for="id_cidade" required>Cidade</label>
+                    <input type="text" required name="cidade" id="id_cidade" class="form-control"
+                        placeholder="Nova Floresta" value="{{ form.cidade.value|default_if_none:"" }}">
                 </div>
+                {% if form.cidade.errors %}
+                <div class="alert alert-danger">
+                    {{ form.cidade.errors }}
+                </div>
+                {% endif %}
             </div>
             <div class="col-4">
                 <div class="form-group">
-                    <label for="txt-extado" required>Estado</label>
-                    <input type="text" required required name="estado" id="txt-estado" class="form-control"
-                        value="{{ perfil.estado }}">
+                    <label for="id_estado" required>Estado</label>
+                    <input type="text" required required name="estado" id="id_estado" class="form-control"
+                        value="{{ form.estado.value|default_if_none:"" }}">
                 </div>
+                {% if form.estado.errors %}
+                <div class="alert alert-danger">
+                    {{ form.estado.errors }}
+                </div>
+                {% endif %}
             </div>
         </div>
 
         <div class="form-row">
             <div class="col-12">
-                {% if perfil.url_foto %}
+                {% if form.url_foto %}
                 <p>
-                <img src="{{perfil.url_foto.url}}" alt="Sem Foto" title="Foto de perfil">
+                <img src="{{form.url_foto.url}}" alt="Sem Foto" title="Foto de perfil">
                 </p>
                 {% endif %}
-                <input type="file" class="custom-file-input" name="foto-perfil" id="foto-perfil"
-                    value="{{ perfil.foto }}">
-                <label for="foto-perfil" class="custom-file-label">Foto de Perfil</label>
+                <input type="file" class="custom-file-input" name="url_foto" id="id_url_foto"
+                    accept="image/*">
+                <label for="id_url_foto" class="custom-file-label">Foto de Perfil</label>
             </div>
         </div>
+
+        {% if form and form.url_foto.url %}
+        <h5>Succesfully uploaded : {{form.nome.value}}</h3>
+        <img src="{{ form.url_foto.url}}" alt="connect" style="max-height:300px">
+        {% endif %}
 
         <div class="row">
             <div class="col text-center">
@@ -124,5 +179,7 @@
             </div>
         </div>
     </form>
+</div>
+</div>
 </section>
 {%endblock%}

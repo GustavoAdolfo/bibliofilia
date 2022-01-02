@@ -11,9 +11,8 @@
     <link rel="icon" href="{% static 'favicon.ico' %}">
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
-    {% bootstrap_messages %}
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="{% static 'fontawesome/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/site.css' %}" rel="stylesheet" type="text/css" />
@@ -25,19 +24,20 @@
 <body class="d-flex flex-column min-vh-100">
     
     {% include '_head.html' %}
+    
+    {% bootstrap_messages %}
 
     <main class="container-fluid">
-        {% if messages %}
+        <!-- {% if messages %}
         {% for message in messages %}
         <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
-            <!-- {- { message } -} -->
             {% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         {% endfor %}
-        {% endif %}
+        {% endif %} -->
         {%block 'conteudo'%}
         {%endblock%}
     </main>

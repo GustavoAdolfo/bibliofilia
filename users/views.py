@@ -1,20 +1,20 @@
+from django.db.models import Q
+from django.contrib.auth.forms import SetPasswordForm
+from django.core.validators import validate_email
+from django.contrib import messages, auth
+from django.contrib.messages.constants import ERROR
+from django.db import transaction
+from django.contrib.auth.decorators import login_required
+from users.models import CustomUser, Perfil
 import base64
-import re
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import logout, login
 from django.contrib.auth.tokens import default_token_generator
-from users.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from users.models import CustomUser, Perfil
-from django.contrib.auth.decorators import login_required
-from django.db import transaction
-from django.contrib.messages.constants import ERROR
-from django.contrib import messages, auth
-from django.core.validators import validate_email
-from django.contrib.auth.forms import SetPasswordForm
+from users.forms import PerfilForm, UserCreationForm, UserChangeForm, \
+    PasswordChangeForm, PerfilForm
 
 
 def logout_view(request):
@@ -39,7 +39,14 @@ def cadastro(request):
             perfil.user = new_user
             perfil.save()
             login(request, new_user)
-            return HttpResponseRedirect(reverse('biblioteca:index'))
+            messages.add_message(request, messages.SUCCESS,
+                                 'Cadastro realizado com sucesso!')
+            messages.add_message(
+                request,
+                messages.WARNING,
+                'Você só poderá solicitar empréstimos após completar seu ' +
+                'perfil e ter seu cadastro aprovado.')
+            return HttpResponseRedirect(reverse('biblioteca:livros'))
 
     context = {'form': form}
     return render(request, 'users/cadastro.html', context)
@@ -48,94 +55,44 @@ def cadastro(request):
 @login_required(login_url='user/login/')
 @transaction.atomic
 def perfil(request):
+    user = auth.get_user(request)
     if request.method != 'POST':
-        user = auth.get_user(request)
         try:
             perfil = get_object_or_404(Perfil, user_id=user.id)
-            # perfil = Perfil.objects.get(user_id=user.id)
         except Exception as e:
-            print(e)
             perfil = Perfil()
             perfil.user = user
 
-        return render(request, 'users/perfil.html', {'perfil': perfil})
+        form = PerfilForm(instance=perfil)
+        return render(request, 'users/perfil.html', {'form': form})
     else:
-        nome = request.POST.get("nome")
-        sobrenome = request.POST.get("sobrenome")
-        email = request.POST.get("email")
-        celular = request.POST.get("celular")
-        cep = request.POST.get("cep")
-        logradouro = request.POST.get("logradouro")
-        numero = request.POST.get("numero")
-        complemento = request.POST.get("complemento")
-        bairro = request.POST.get("bairro")
-        cidade = request.POST.get("cidade")
-        estado = request.POST.get("estado")
-        foto_perfil = request.POST.get("foto-perfil")
+        if Perfil.objects.filter(user_id=user.id).exists():
+            perfil = Perfil.objects.get(user_id=user.id)
+            form = PerfilForm(
+                instance=perfil, data=request.POST, files=request.FILES)
+            if form.is_valid():
+                perfil = form.save(commit=False)
+                perfil.user = user
+                perfil.save()
+                messages.add_message(request, messages.SUCCESS,
+                                     'Perfil atualizado com sucesso!')
+                return HttpResponseRedirect(reverse('biblioteca:index'))
+        else:
+            form = PerfilForm(request.POST, request.FILES)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.user = user
+                instance.save()
 
-        campos_invalidos = []
-        if not nome or len(nome) < 3:
-            campos_invalidos.append('O campo NOME está inválido!')
-        if not sobrenome or len(sobrenome) < 3:
-            campos_invalidos.append('O campo SOBRENOME está inválido!')
-        if not cep or len(cep) != 8:
-            campos_invalidos.append('O campo CEP está inválido!')
-        if not logradouro or len(logradouro) < 5:
-            campos_invalidos.append('O campo LOGRADOURO está inválido!')
-        if not bairro or len(bairro) < 5:
-            campos_invalidos.append('O campo BAIRRO está inválido!')
-        if not cidade or len(cidade) < 3:
-            campos_invalidos.append('O campo CIDADE está inválido!')
-        if not estado or len(estado) < 2:
-            campos_invalidos.append('O campo ESTADO está inválido!')
-        if not celular or len(celular) < 11:
-            campos_invalidos.append('O campo CELULAR está inválido!')
-        # if not senha or len(senha) < 8:
-        #     campos_invalidos.append('O campo SENHA está inválido!')
-        # if not confirmar_senha or len(confirmar_senha) < 8:
-        #     campos_invalidos.append(
-        #         'O campo CONFIRMAÇÃO DE SENHA está inválido!')
-        # if confirmar_senha != senha:
-        #     campos_invalidos.append(
-        #         'A SENHA e a CONFIRMAÇÃO DE SENHA divergem!')
-        try:
-            validate_email(email)
-            if Perfil.objects.filter(email=email).exists():
-                msg = 'O E-MAIL informado já está sendo utilizado! '
-                msg += '<a href="/contas/recuperar-senha">Recuperar senha</a>.'
-                campos_invalidos.append(msg)
-        except Exception:
-            campos_invalidos.append('O campo E-MAIL está inválido!')
+                # Get the current instance object to display in the template
+                img_obj = form.instance
+                # return render(request, 'index.html', {'form': form, 'img_obj': img_obj})
+                messages.add_message(request, messages.SUCCESS,
+                                     'Perfil atualizado com sucesso!')
+                return HttpResponseRedirect(reverse('biblioteca:index'))
 
-        # if not aceite_termos:
-        #     campos_invalidos.append(
-        #         'Você precisa estar ciente e aceitar os termos de uso e'
-        #         ' a política de privacidade para prosseguir')
-
-        if len(campos_invalidos):
-            # erros = 'Alugns campos precisam de revisão:'
-            # messages.error(request, erros, extra_tags='safe')
-            for erro in campos_invalidos:
-                messages.add_message(request, ERROR, erro, extra_tags='safe')
-            # , {'erros': campos_invalidos})
-            return render(request, reverse('user:perfil'))
-
-        user = auth.get_user(request)
-        Perfil.objects.create(user=user,
-                              celular=celular,
-                              cep=cep,
-                              logradouro=logradouro,
-                              numero=numero,
-                              complemento=complemento,
-                              bairro=bairro,
-                              cidade=cidade,
-                              estado=estado,
-                              url_foto=foto_perfil  # SUBIR O ARQUIVO PARA ALGUM LUGAR E ENTÃO PASSAR A URL
-                              )
-        messages.add_message(request, messages.SUCCESS,
-                             'Perfil atualizado com sucesso!')
-        return HttpResponseRedirect(reverse('biblioteca:index'))
-        # return render(request, '', {'novo_cadastro': True})
+        form = PerfilForm(request.POST, request.FILES)
+        return render(request, 'users/perfil.html', {'form': form})
 
 
 @login_required(login_url='user/login/')

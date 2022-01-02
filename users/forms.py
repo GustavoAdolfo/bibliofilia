@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, \
-    PasswordChangeForm
-# from django.contrib.auth.models import User
-from .models import CustomUser
+    PasswordChangeForm as PdwChangeForm
+from django.forms import fields
+from django.forms.models import ModelForm
+from .models import CustomUser, Perfil
 from captcha.fields import CaptchaField
 
 
@@ -10,18 +11,21 @@ class UserCreationForm(UserCreationForm):
     first_name = forms.CharField(required=True, label="Nome")
     last_name = forms.CharField(required=True, label="Sobrenome")
     email = forms.EmailField(required=True, label='Email')
+    aceite_termos = forms.BooleanField(
+        required=True, label='Aceito os termos de uso')
     captcha = CaptchaField()
 
     class Meta:
         model = CustomUser
         fields = ("first_name", "last_name", "email",
-                  "password1", "password2")
+                  "password1", "password2", "aceite_termos")
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
         user.email = self.cleaned_data["email"]
+        user.aceite_termos = self.cleaned_data["aceite_termos"]
         if commit:
             user.save()
         return user
@@ -47,7 +51,17 @@ class UserChangeForm(UserChangeForm):
         self.fields['password'].help_text = "Click <a href=\"../changepassword/\"> Here</a to reset your Password."
 
 
-class PasswordChangeForm(PasswordChangeForm):
+class PerfilForm(ModelForm):
+    user_id = forms.CharField(widget=forms.HiddenInput())
+
+    class Meta:
+        model = Perfil
+        fields = ['nome', 'sobrenome', 'celular', 'cep', 'logradouro',
+                  'numero', 'complemento', 'bairro', 'cidade', 'estado',
+                  'url_foto']
+
+
+class PasswordChangeForm(PdwChangeForm):
 
     def __init__(self, *args, **kwargs):
         super(PasswordChangeForm, self).__init__(*args, **kwargs)

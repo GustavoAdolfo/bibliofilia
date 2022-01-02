@@ -3,10 +3,100 @@
 {%block 'conteudo'%}
 
 <form action="{% url 'user:cadastro' %}" class="form" id="frm-cadastro" method="post">
+    {% csrf_token %}
     <div class="card">
         <div class="card-body">
-            {% csrf_token %}
-            {{form.as_p}}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="id_first_name">Nome:</label>
+                        <input type="text" class="form-control" name="first_name" id="id_first_name" autocomplete="given-name"
+                            placeholder="Informe seu nome" required autofocus value="{{ form.first_name.value|default_if_none:""  }}">
+                    </div>
+                    {% if form.first_name.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.first_name.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="id_last_name">Sobrenome:</label>
+                        <input type="text" class="form-control" name="last_name" id="id_last_name" autocomplete="family-name"
+                            placeholder="Informe seu sobrenome" required value="{{ form.last_name.value|default_if_none:""  }}">
+                        {% if form.last_name.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.last_name.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="id_email">E-mail:</label>
+                        <input type="email" class="form-control" name="email" id="id_email" autocomplete="email"
+                            aria-describedby="emailHelp" placeholder="seu_email@de_cadastro.net"
+                            required value="{{ form.email.value|default_if_none:""  }}">
+                        <small id="emailHelp" class="form-text text-muted">Este deve ser o e-mail que usará para acessar a Minhoteca</small>
+                        {% if form.email.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.email.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="id_password1">Senha:</label>
+                        <input type="password" class="form-control" name="password1" id="id_password1"
+                            aria-describedby="password1Help" placeholder="************"
+                            autocomplete="new-password" required>
+                        <small id="password1Help" class="form-text text-muted">
+                            {{ form.password1.help_text }}
+                        </small>
+                        {% if form.password1.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.password1.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="id_password2">Confirmação de senha:</label>
+                        <input type="password" class="form-control" name="password2" id="id_password2"
+                            aria-describedby="password2Help" placeholder="************"
+                            autocomplete="new-password" required>
+                        <small id="password2Help" class="form-text text-muted">
+                            {{ form.password2.help_text }}
+                        </small>
+                        {% if form.password2.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.password2.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="id_captcha_1">Captcha:</label>
+                        {{form.captcha}}
+                        {% if form.captcha.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.captcha.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            {% comment %} {{form.as_p}} {% endcomment %}
             <div class="form-row my-4">
                 <div class="col">
                     <div class="form-group">
@@ -18,6 +108,11 @@
                                 com a <a href="" class="">Política de Privacidade</a>.
                             </label>
                         </div>
+                        {% if form.aceite_termos.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.aceite_termos.errors }}
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
