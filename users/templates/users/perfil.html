@@ -8,7 +8,10 @@
 
     <div class="row">
         <div class="col sm-12 text-right">
-            <a id="link-redefinir-senha" class="nav-link" href="{% url 'user:changepassword' %}"><i class="fas fa-key"></i> Redefinir Senha</a>
+            <a id="link-redefinir-senha" class="btn btn-warning" 
+                href="{% url 'user:changepassword' %}">
+                <i class="fas fa-key"></i> Redefinir Senha
+            </a>
         </div>
     </div>
 
@@ -54,8 +57,8 @@
                 <div class="form-group">
                     <label for="id_celular" required>Celular</label>
                     <input type="text" required class="form-control" name="celular" id="id_celular"
-                        value="{{ form.celular.value|default_if_none:"" }}" placeholder="(11) 91234-5678"
-                        pattern="\(?[0-9]{2}\)?\s?9[0-9]{4}-?[0-9]{4}">
+                        value="{{ form.celular.value|default_if_none:"" }}" placeholder="11912345678"
+                        pattern="\(?[0-9]{2}\)?\s?9[0-9]{4}-?[0-9]{4}" title="Apenas números">
                 </div>
                 {% if form.celular.errors %}
                 <div class="alert alert-danger">
@@ -70,8 +73,9 @@
                 <div class="form-group">
                     <label for="id_cep" required>CEP</label>
                     <input type="text" required class="form-control" placeholder="10101-010"
-                        pattern="[0-9]{5}-?[0-9]{3}" name="cep" id="id_cep" value="{{ form.cep.value|default_if_none:""|stringformat:"08d" }}">
-                </div>
+                        pattern="[0-9]{5}-?[0-9]{3}" name="cep" id="id_cep" 
+                        value="{{ form.cep.value|stringformat:"08d"|default_if_none:"" }}">
+                </div> <!---->
                 {% if form.cep.errors %}
                 <div class="alert alert-danger">
                     {{ form.cep.errors }}
@@ -143,9 +147,10 @@
             </div>
             <div class="col-4">
                 <div class="form-group">
-                    <label for="id_estado" required>Estado</label>
-                    <input type="text" required required name="estado" id="id_estado" class="form-control"
-                        value="{{ form.estado.value|default_if_none:"" }}">
+                    <label for="id_estado">Estado</label>
+                    <input type="text" name="estado"
+                        id="id_estado" class="form-control"
+                        value="{{ form.estado.value|default_if_none:"SP" }}">
                 </div>
                 {% if form.estado.errors %}
                 <div class="alert alert-danger">
@@ -175,7 +180,7 @@
 
         <div class="row">
             <div class="col text-center">
-                <input type="submit" value="Salvar" class="btn btn-lg btn-success">
+                <input type="submit" value="Salvar" class="btn btn-lg btn-primary">
             </div>
         </div>
     </form>

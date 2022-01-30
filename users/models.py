@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
@@ -16,6 +15,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('The Email must be set'))
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
+        user.is_active = False
         user.set_password(password)
         user.save()
         return user
@@ -41,6 +41,7 @@ class CustomUser(AbstractUser):
     aceite_termos = models.BooleanField(_('Termos de Uso'), default=False)
     data_aceite_termos = models.DateTimeField(
         _('Data do Aceite'), default=timezone.now)
+    email_confirmed = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['aceite_termos']
@@ -48,7 +49,7 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.first_name
+        return str(self.first_name)
 
 
 class Perfil(models.Model):
@@ -70,7 +71,7 @@ class Perfil(models.Model):
     permitir_emprestimo = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
     class Meta:
         verbose_name_plural = 'perfis'

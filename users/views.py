@@ -1,52 +1,74 @@
 from django.db.models import Q
 from django.contrib.auth.forms import SetPasswordForm
-from django.core.validators import validate_email
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
 from django.contrib import messages, auth
 from django.contrib.messages.constants import ERROR
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
+from django.views import View
 from users.models import CustomUser, Perfil
 import base64
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import logout, login
 from django.contrib.auth.tokens import default_token_generator
-from users.forms import PerfilForm, UserCreationForm, UserChangeForm, \
-    PasswordChangeForm, PerfilForm
+from users.forms import PerfilForm, CustomUserCreationForm, \
+    CustomUserChangeForm, PasswordChangeForm, PerfilForm
+from users.tokens import account_activation_token
+from django.utils.encoding import force_text
 
 
 def logout_view(request):
     """Faz log out do usuário."""
     logout(request)
+    request.session.flush()
     return HttpResponseRedirect(reverse('biblioteca:index'))
 
 
 def cadastro(request):
     """Faz o cadastro de um novo usuário."""
     if request.method != 'POST':
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     else:
-        form = UserCreationForm(data=request.POST)
+        form = CustomUserCreationForm(data=request.POST)
         if form.is_valid():
-            new_user = form.save()
-            perfil = Perfil()
-            perfil.email = new_user.email
-            perfil.nome = new_user.first_name
-            perfil.sobrenome = new_user.last_name
-            perfil.permitir_emprestimo = True
-            perfil.user = new_user
-            perfil.save()
-            login(request, new_user)
-            messages.add_message(request, messages.SUCCESS,
-                                 'Cadastro realizado com sucesso!')
+            new_user = form.save(commit=False)
+            new_user.is_active = False
+            new_user.save()
+            Perfil.objects.create(
+                nome=new_user.first_name,
+                sobrenome=new_user.last_name,
+                permitir_emprestimo=False,
+                user=new_user
+            )
+
+            # login(request, new_user)
             messages.add_message(
                 request,
                 messages.WARNING,
                 'Você só poderá solicitar empréstimos após completar seu ' +
                 'perfil e ter seu cadastro aprovado.')
-            return HttpResponseRedirect(reverse('biblioteca:livros'))
+            # return HttpResponseRedirect(reverse('biblioteca:livros'))
+
+            current_site = get_current_site(request)
+            subject = 'Activate Your MySite Account'
+            message = render_to_string('emails/account_activation_email.html', {
+                'user': new_user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(new_user.pk)),
+                'token': account_activation_token.make_token(new_user),
+            })
+            new_user.email_user(subject, message)
+
+            messages.success(
+                request, ('Enviamos um e-mail para que você confirme sua conta.'))
+
+            return HttpResponseRedirect(reverse('user:login'))
 
     context = {'form': form}
     return render(request, 'users/cadastro.html', context)
@@ -98,13 +120,13 @@ def perfil(request):
 @login_required(login_url='user/login/')
 def editprofile(request):
     if request.method == "POST":
-        form = UserChangeForm(request.POST, instance=request.user)
+        form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, ("Your Profile Updated"))
             return redirect('crmapp')
     else:
-        form = UserChangeForm(instance=request.user)
+        form = CustomUserChangeForm(instance=request.user)
     context = {'form': form}
     return render(request, 'editprofile.html', context)
 
@@ -161,3 +183,55 @@ def password_reset_confirm(request, uidb64=None, token=None,
         messages.add_message(
             request, messages.ERROR, 'Este link não é mais válido. Se deseja alterar sua senha, solicite novamente.')
         return HttpResponseRedirect(reverse('user:password_reset'))
+
+
+class ChangePasswordView(View):
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        context = {'user': user}
+        return render(request, 'users/changepassword.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = SetPasswordForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Você precisa fazer login novamente para validar a nova senha.")
+            return HttpResponseRedirect(reverse('user:logout'))
+        else:
+            ctx = {}
+            ctx['form'] = form
+            return render(request, 'users/changepassword.html', ctx)
+
+
+class ActivateAccountView(View):
+
+    def get(self, request, uidb64, token, *args, **kwargs):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = CustomUser.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        if user is not None and account_activation_token.check_token(
+                user,
+                token):
+            user.is_active = True
+            user.email_confirmed = True
+            user.save()
+            perfil = Perfil.objects.get(user_id=user.id)
+            perfil.permitir_emprestimo = True
+            perfil.save()
+            login(request, user)
+            messages.success(request, (
+                'Obrigado por confirmar sua conta. Aproveite a Minhoteca!'))
+            return HttpResponseRedirect(reverse('biblioteca:livros'))
+        else:
+            messages.warning(
+                request, (
+                    'O link de confirmação é inválido, possivelmente ' +
+                    'porque ele já pode ter sido utilizado.'))
+            form = CustomUserCreationForm()
+            context = {'form': form}
+            return render(request, 'users/cadastro.html', context)

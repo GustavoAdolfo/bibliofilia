@@ -20,7 +20,7 @@ header .navbar .navbar-brand img {
 }
 
 header .navbar {
-  background-color: #205020;
+  background-color: #7f5539;
   color: #fff;
   margin-bottom: 20px;
 }
@@ -32,7 +32,7 @@ header .navbar {
 }
 
 #header-principal nav .nav-item .nav-link:hover{
-  background-color: #102510;
+  background-color: #7f5539;
 }
 
 #usermenu #profile_picture {
@@ -46,7 +46,7 @@ header .navbar {
 }
 
 #footer-principal .navbar {
-    background-color: #205020;
+    background-color: #7f5539;
     font-size: .75em;
 }
 
@@ -63,7 +63,7 @@ ul.pagination li {
   border: none;
 }
 ul.pagination li a {
-  background-color: #205020;
+  background-color: #7f5539;
   color: #fff;
   border: none;
 }
@@ -71,9 +71,9 @@ ul.pagination li a {
 ul.pagination li.active a{
   background-color: #8a928a !important;
   /* border: none; */
-  color: #205020;
+  color: #7f5539;
 }
 
 section#perfil #link-redefinir-senha {
-  color: #205020;
+  color: #000;
 }
